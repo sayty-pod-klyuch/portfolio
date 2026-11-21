@@ -3,29 +3,128 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Сайты, боты и приложения для бизнеса: примеры работ</title>
+<title>Мекан — сайты, Telegram-боты и приложения для бизнеса</title>
+<meta name="description" content="Делаю сайты-визитки, Telegram-боты, калькуляторы и мини-приложения для бизнеса. От 2 500 ₽, срок от 2 дней. Предоплата 50%.">
 <style>
+:root{--bg:#0b0b0b;--card:#161616;--line:#262626;--y:#ffc400;--t:#f2f2f2;--m:#9a9a9a}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:system-ui,Segoe UI,Arial,sans-serif;background:#0b0b0b;color:#f2f2f2;line-height:1.5;padding:20px;max-width:640px;margin:0 auto}
-h1{font-size:26px;line-height:1.2;margin:10px 0 8px}
-h1 span{color:#ffc400}
-.lead{color:#aaa;margin-bottom:20px}
-a.card{display:block;background:#161616;border:1px solid #262626;border-radius:16px;padding:16px;margin-bottom:12px;color:inherit;text-decoration:none}
-a.card b{font-size:17px;display:block}
-a.card p{color:#bbb;font-size:15px;margin-top:4px}
-a.card i{color:#ffc400;font-style:normal;font-weight:700;display:block;margin-top:8px}
-.note{color:#777;font-size:13px;margin-top:20px}
+html{scroll-behavior:smooth}
+body{font-family:system-ui,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--t);line-height:1.55}
+.wrap{max-width:960px;margin:0 auto;padding:0 20px}
+header{position:sticky;top:0;background:rgba(11,11,11,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);z-index:5}
+header .wrap{display:flex;justify-content:space-between;align-items:center;height:60px}
+.logo{font-weight:800;font-size:20px}
+.logo span{color:var(--y)}
+nav a{color:var(--m);text-decoration:none;margin-left:18px;font-size:15px}
+nav a:hover{color:var(--y)}
+.btn{display:inline-block;background:var(--y);color:#111;font-weight:800;padding:14px 26px;border-radius:12px;text-decoration:none;font-size:16px}
+.btn.ghost{background:transparent;color:var(--t);border:1px solid #3a3a3a;margin-left:10px}
+.hero{padding:70px 0 50px}
+.tag{display:inline-block;border:1px solid var(--line);color:var(--y);border-radius:20px;padding:4px 14px;font-size:13px;margin-bottom:18px}
+.hero h1{font-size:44px;line-height:1.1;margin-bottom:16px;max-width:680px}
+.hero h1 span{color:var(--y)}
+.hero p{color:var(--m);font-size:18px;max-width:560px;margin-bottom:28px}
+.facts{display:flex;gap:28px;flex-wrap:wrap;margin-top:36px;color:var(--m);font-size:14px}
+.facts b{display:block;color:var(--t);font-size:20px}
+section{padding:36px 0}
+h2{font-size:28px;margin-bottom:8px}
+.sub{color:var(--m);margin-bottom:22px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px}
+.card h3{font-size:19px;margin-bottom:6px}
+.card p{color:var(--m);font-size:15px}
+.price{color:var(--y);font-weight:800;font-size:22px;margin:10px 0 4px}
+.card ul{list-style:none;margin-top:10px;font-size:14px;color:#cfcfcf}
+.card li{padding:3px 0}
+.card li::before{content:"✓ ";color:var(--y)}
+a.ex{text-decoration:none;color:inherit;transition:.15s}
+a.ex:hover{border-color:var(--y);transform:translateY(-2px)}
+a.ex i{color:var(--y);font-style:normal;font-weight:700;display:block;margin-top:10px;font-size:14px}
+.steps{counter-reset:s;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.step{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;counter-increment:s}
+.step::before{content:counter(s);display:inline-block;width:30px;height:30px;line-height:30px;text-align:center;background:var(--y);color:#111;border-radius:50%;font-weight:800;margin-bottom:10px}
+details{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 18px;margin-bottom:10px}
+summary{cursor:pointer;font-weight:600}
+details p{color:var(--m);margin-top:8px;font-size:15px}
+.contact{text-align:center;background:var(--card);border:1px solid var(--line);border-radius:24px;padding:40px 20px;margin:20px 0 40px}
+.contact h2{margin-bottom:10px}
+footer{border-top:1px solid var(--line);padding:24px 0;color:#666;font-size:13px;text-align:center}
+@media(max-width:600px){.hero h1{font-size:32px}nav{display:none}.btn.ghost{margin:10px 0 0}}
 </style>
 </head>
 <body>
-<h1>Любой сайт, бот или приложение <span>для вашего дела</span></h1>
-<div class="lead">Нажмите на пример, чтобы посмотреть, как это выглядит у клиента.</div>
-<a class="card" href="vizitka.html"><b>Сайт-визитка</b><p>Ремонтная бригада: услуги, цены, форма заявки.</p><i>Открыть →</i></a>
-<a class="card" href="kalkulyator.html"><b>Калькулятор плитки</b><p>Считает плитку, упаковки, клей и стоимость.</p><i>Открыть →</i></a>
-<a class="card" href="salon.html"><b>Сайт салона красоты</b><p>Услуги, цены и онлайн-запись на время.</p><i>Открыть →</i></a>
-<a class="card" href="avtoservis.html"><b>Сайт автосервиса</b><p>Прайс, гарантия, заявка на диагностику.</p><i>Открыть →</i></a>
-<a class="card" href="potolki.html"><b>Калькулятор натяжных потолков</b><p>Клиент сам считает цену и заказывает замер.</p><i>Открыть →</i></a>
-<a class="card" href="uslugi.html"><b>Услуги и цены</b><p>Сайты от 2 500 ₽, боты от 3 000 ₽, приложения от 6 000 ₽.</p><i>Смотреть →</i></a>
-<div class="note">Telegram-бот для заявок и записи делается по тому же принципу: меню, прайс, заявка приходит владельцу. Показать работу бота можно в переписке.</div>
+<header><div class="wrap">
+<div class="logo">Мекан<span>.</span></div>
+<nav><a href="#uslugi">Услуги</a><a href="#primery">Примеры</a><a href="#kak">Как работаю</a><a href="#faq">Вопросы</a></nav>
+<a class="btn" style="padding:9px 18px;font-size:14px" href="https://t.me/mekanss">Написать</a>
+</div></header>
+
+<main class="wrap">
+<section class="hero">
+<div class="tag">Принимаю заказы</div>
+<h1>Сайты, боты и приложения <span>для вашего бизнеса</span></h1>
+<p>Сделаю так, чтобы клиенты находили вас в интернете, записывались сами и считали цену без звонков. Просто, быстро, с понятной ценой.</p>
+<a class="btn" href="https://t.me/mekanss">Обсудить заказ в Telegram</a>
+<a class="btn ghost" href="#primery">Посмотреть примеры</a>
+<div class="facts">
+<div><b>от 2 дней</b>срок готового сайта</div>
+<div><b>от 2 500 ₽</b>цена сайта-визитки</div>
+<div><b>2 правки</b>входят в цену</div>
+</div>
+</section>
+
+<section id="uslugi">
+<h2>Что делаю</h2>
+<div class="sub">Три основных услуги. Нужно что-то другое? Скажите, посмотрю, как сделать.</div>
+<div class="grid">
+<div class="card"><h3>Сайт-визитка</h3><p>Страница о вашем бизнесе, на которой клиент сразу видит, что вы делаете и сколько это стоит.</p><div class="price">от 2 500 ₽</div>
+<ul><li>Услуги, цены, фото</li><li>Форма заявки, заявки в Telegram</li><li>Удобно на телефоне</li><li>Срок 2 дня</li></ul></div>
+<div class="card"><h3>Telegram-бот</h3><p>Принимает заявки и записи, отвечает на частые вопросы вместо вас.</p><div class="price">от 3 000 ₽</div>
+<ul><li>Меню с кнопками, прайс</li><li>Запись и заявки</li><li>Уведомление вам о каждой заявке</li><li>Срок 3 дня</li></ul></div>
+<div class="card"><h3>Приложение и калькулятор</h3><p>Расчёт стоимости, смета, учёт, справочник. Для сайта или телефона.</p><div class="price">от 6 000 ₽</div>
+<ul><li>Расчёт цены для клиента</li><li>Работает на телефоне, можно .apk</li><li>Свой дизайн</li><li>Срок 4 дня</li></ul></div>
+</div>
+</section>
+
+<section id="primery">
+<h2>Примеры работ</h2>
+<div class="sub">Нажмите, чтобы открыть и попробовать. Для вашего бизнеса сделаю в вашем стиле.</div>
+<div class="grid">
+<a class="card ex" href="salon.html"><h3>Сайт салона красоты</h3><p>Услуги, цены и онлайн-запись на время.</p><i>Открыть →</i></a>
+<a class="card ex" href="avtoservis.html"><h3>Сайт автосервиса</h3><p>Прайс, гарантия, заявка на диагностику.</p><i>Открыть →</i></a>
+<a class="card ex" href="potolki.html"><h3>Калькулятор потолков</h3><p>Клиент считает цену и заказывает замер.</p><i>Открыть →</i></a>
+<a class="card ex" href="kalkulyator.html"><h3>Калькулятор плитки</h3><p>Плитка, упаковки, клей, стоимость.</p><i>Открыть →</i></a>
+<a class="card ex" href="vizitka.html"><h3>Сайт ремонтной бригады</h3><p>Услуги, цены, форма заявки.</p><i>Открыть →</i></a>
+</div>
+</section>
+
+<section id="kak">
+<h2>Как я работаю</h2>
+<div class="sub">Четыре простых шага, без сюрпризов.</div>
+<div class="steps">
+<div class="step"><b>Вы пишете</b><p style="color:var(--m);font-size:15px">Рассказываете, чем занимаетесь и что нужно. Я называю цену и срок.</p></div>
+<div class="step"><b>Предоплата 50%</b><p style="color:var(--m);font-size:15px">Переводом по СБП. После этого начинаю работу.</p></div>
+<div class="step"><b>Показываю результат</b><p style="color:var(--m);font-size:15px">Вносим до двух правок бесплатно.</p></div>
+<div class="step"><b>Сдаю работу</b><p style="color:var(--m);font-size:15px">Вы оплачиваете остаток, я передаю файлы и доступы.</p></div>
+</div>
+</section>
+
+<section id="faq">
+<h2>Частые вопросы</h2>
+<div style="height:14px"></div>
+<details><summary>Нужен ли мне хостинг и домен?</summary><p>Подскажу, что выбрать. Для начала можно запуститься на бесплатном размещении, а свой домен добавить позже.</p></details>
+<details><summary>Сколько правок входит в цену?</summary><p>Две. Дальше каждая дополнительная правка стоит 500 ₽.</p></details>
+<details><summary>Можно срочно?</summary><p>Да, за 24 часа. Срочность стоит +30% к цене.</p></details>
+<details><summary>Как приходят заявки?</summary><p>В ваш Telegram, сразу после того, как клиент их отправил.</p></details>
+<details><summary>Делаете что-то, чего нет в списке?</summary><p>Да, любой сайт, бот или приложение под задачу. Опишите, что нужно, и я скажу цену.</p></details>
+</section>
+
+<div class="contact">
+<h2>Обсудим ваш проект?</h2>
+<p class="sub">Напишите в Telegram, отвечу в течение дня.</p>
+<a class="btn" href="https://t.me/mekanss">Написать @mekanss</a>
+</div>
+</main>
+<footer><div class="wrap">© Мекан. Сайты, боты и приложения для бизнеса.</div></footer>
 </body>
 </html>
