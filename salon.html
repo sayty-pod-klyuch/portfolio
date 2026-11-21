@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Студия красоты «Лилия» — запись онлайн</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,Segoe UI,Arial,sans-serif;background:#fff7f9;color:#2b2226;line-height:1.5}
+.wrap{max-width:820px;margin:0 auto;padding:0 18px}
+header{padding:16px 0}
+header .wrap{display:flex;justify-content:space-between;align-items:center}
+.logo{font-weight:800;font-size:22px;color:#c2185b}
+.btn{display:inline-block;background:#c2185b;color:#fff;font-weight:700;padding:12px 22px;border-radius:30px;text-decoration:none;border:0;font-size:16px;cursor:pointer}
+.hero{padding:40px 0 30px;text-align:center}
+.hero h1{font-size:32px;line-height:1.2;margin-bottom:12px}
+.hero p{color:#7b6a71;margin-bottom:22px}
+h2{font-size:22px;margin:34px 0 14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.card{background:#fff;border-radius:18px;padding:16px;box-shadow:0 2px 10px rgba(194,24,91,.08)}
+.card b{display:block}
+.card .p{color:#c2185b;font-weight:800;margin-top:6px}
+form{background:#fff;border-radius:18px;padding:18px;display:grid;gap:10px;max-width:440px;box-shadow:0 2px 10px rgba(194,24,91,.08)}
+select,input{padding:12px;border-radius:10px;border:1px solid #e6cdd6;font-size:16px;background:#fff}
+#ok{display:none;color:#2e7d32;font-weight:600}
+footer{padding:30px 0;color:#9a8a91;font-size:13px;text-align:center}
+</style>
+</head>
+<body>
+<header><div class="wrap"><div class="logo">Лилия</div><a class="btn" href="#zapis">Записаться</a></div></header>
+<main class="wrap">
+<section class="hero">
+<h1>Красота без очередей. Запись за 30 секунд</h1>
+<p>Маникюр, стрижки, брови и ресницы. Опытные мастера, стерильные инструменты.</p>
+<a class="btn" href="#zapis">Выбрать время</a>
+</section>
+<h2>Услуги и цены</h2>
+<div class="grid">
+<div class="card"><b>Маникюр + покрытие</b>2 часа<div class="p">2 200 ₽</div></div>
+<div class="card"><b>Женская стрижка</b>1 час<div class="p">1 800 ₽</div></div>
+<div class="card"><b>Коррекция бровей</b>40 минут<div class="p">900 ₽</div></div>
+<div class="card"><b>Наращивание ресниц</b>2,5 часа<div class="p">3 000 ₽</div></div>
+</div>
+<h2 id="zapis">Онлайн-запись</h2>
+<form id="f">
+<select id="srv"><option>Маникюр + покрытие</option><option>Женская стрижка</option><option>Коррекция бровей</option><option>Наращивание ресниц</option></select>
+<input type="date" id="d" required>
+<select id="t"><option>10:00</option><option>12:00</option><option>14:00</option><option>16:00</option><option>18:00</option></select>
+<input id="n" placeholder="Ваше имя" required>
+<input id="ph" type="tel" placeholder="Телефон" required>
+<button class="btn" type="submit">Записаться</button>
+<div id="ok"></div>
+</form>
+</main>
+<footer>Демонстрационный пример сайта для салона красоты</footer>
+<script>
+document.getElementById('f').addEventListener('submit',function(e){
+  e.preventDefault();
+  var ok=document.getElementById('ok');
+  ok.textContent='Вы записаны: '+document.getElementById('srv').value+', '+document.getElementById('d').value+' в '+document.getElementById('t').value+'. Мы позвоним для подтверждения.';
+  ok.style.display='block';
+});
+</script>
+</body>
+</html>

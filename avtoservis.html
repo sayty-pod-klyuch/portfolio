@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>АвтоМастер — автосервис, запись онлайн</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,Segoe UI,Arial,sans-serif;background:#0c0f14;color:#eef2f7;line-height:1.5}
+.wrap{max-width:860px;margin:0 auto;padding:0 18px}
+header{padding:16px 0;border-bottom:1px solid #1d2430}
+header .wrap{display:flex;justify-content:space-between;align-items:center}
+.logo{font-weight:800;font-size:20px;color:#ff6a00}
+.btn{display:inline-block;background:#ff6a00;color:#fff;font-weight:700;padding:12px 22px;border-radius:10px;text-decoration:none;border:0;font-size:16px;cursor:pointer}
+.hero{padding:50px 0 30px}
+.hero h1{font-size:34px;line-height:1.2;margin-bottom:12px}
+.hero h1 span{color:#ff6a00}
+.hero p{color:#9aa6b6;margin-bottom:22px;max-width:520px}
+h2{font-size:22px;margin:34px 0 14px}
+table{width:100%;border-collapse:collapse;background:#141a23;border-radius:12px;overflow:hidden}
+td,th{padding:12px 14px;text-align:left;border-bottom:1px solid #1d2430}
+th{color:#9aa6b6;font-weight:600;font-size:14px}
+td.p{color:#ff6a00;font-weight:700;white-space:nowrap}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.card{background:#141a23;border-radius:12px;padding:16px}
+form{background:#141a23;border-radius:12px;padding:18px;display:grid;gap:10px;max-width:440px}
+input,select{padding:12px;border-radius:8px;border:1px solid #2a3342;background:#0c0f14;color:#fff;font-size:16px}
+#ok{display:none;color:#6fdc6f}
+footer{padding:30px 0;color:#667;font-size:13px;text-align:center}
+</style>
+</head>
+<body>
+<header><div class="wrap"><div class="logo">АвтоМастер</div><a class="btn" href="tel:+70000000000">Позвонить</a></div></header>
+<main class="wrap">
+<section class="hero">
+<h1>Ремонт и обслуживание авто <span>с гарантией</span></h1>
+<p>Диагностика за 30 минут. Называем цену до начала работ. Гарантия на запчасти и работу 6 месяцев.</p>
+<a class="btn" href="#zapis">Записаться на диагностику</a>
+</section>
+<h2>Прайс</h2>
+<table>
+<tr><th>Услуга</th><th>Цена</th></tr>
+<tr><td>Компьютерная диагностика</td><td class="p">1 000 ₽</td></tr>
+<tr><td>Замена масла и фильтра</td><td class="p">от 800 ₽</td></tr>
+<tr><td>Замена тормозных колодок</td><td class="p">от 1 500 ₽</td></tr>
+<tr><td>Ремонт подвески</td><td class="p">от 2 500 ₽</td></tr>
+<tr><td>Шиномонтаж (4 колеса)</td><td class="p">от 2 000 ₽</td></tr>
+</table>
+<h2>Почему мы</h2>
+<div class="grid">
+<div class="card"><b>Фиксированная цена</b><br>Называем до работ</div>
+<div class="card"><b>Гарантия 6 месяцев</b><br>На работу и запчасти</div>
+<div class="card"><b>Запись без очереди</b><br>Приезжайте в своё время</div>
+</div>
+<h2 id="zapis">Записаться</h2>
+<form id="f">
+<input id="car" placeholder="Марка и модель авто" required>
+<select id="s"><option>Диагностика</option><option>Замена масла</option><option>Тормоза</option><option>Подвеска</option><option>Шиномонтаж</option></select>
+<input id="d" type="date" required>
+<input id="ph" type="tel" placeholder="Телефон" required>
+<button class="btn" type="submit">Отправить заявку</button>
+<div id="ok">Заявка принята. Перезвоним в течение 15 минут.</div>
+</form>
+</main>
+<footer>Демонстрационный пример сайта для автосервиса</footer>
+<script>
+document.getElementById('f').addEventListener('submit',function(e){e.preventDefault();document.getElementById('ok').style.display='block'});
+</script>
+</body>
+</html>
