@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>РемонтПро — ремонт квартир под ключ</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,Segoe UI,Arial,sans-serif;background:#0d0d0d;color:#f2f2f2;line-height:1.5}
+.wrap{max-width:900px;margin:0 auto;padding:0 18px}
+header{padding:16px 0;border-bottom:1px solid #222}
+header .wrap{display:flex;justify-content:space-between;align-items:center}
+.logo{font-weight:800;font-size:20px;color:#ffc400}
+.btn{display:inline-block;background:#ffc400;color:#111;font-weight:700;padding:12px 22px;border-radius:12px;text-decoration:none;border:0;font-size:16px;cursor:pointer}
+.hero{padding:60px 0 40px}
+.hero h1{font-size:34px;line-height:1.2;margin-bottom:14px}
+.hero h1 span{color:#ffc400}
+.hero p{color:#bbb;margin-bottom:24px;max-width:520px}
+h2{font-size:24px;margin:40px 0 18px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.card{background:#171717;border:1px solid #262626;border-radius:16px;padding:18px}
+.card b{display:block;margin-bottom:6px}
+.price{color:#ffc400;font-weight:800;font-size:18px;margin-top:8px}
+form{display:grid;gap:10px;max-width:420px}
+input,textarea{padding:12px;border-radius:10px;border:1px solid #333;background:#171717;color:#fff;font-size:16px}
+footer{margin-top:50px;padding:24px 0;border-top:1px solid #222;color:#777;font-size:14px}
+#ok{display:none;color:#6fdc6f}
+</style>
+</head>
+<body>
+<header><div class="wrap"><div class="logo">РемонтПро</div><a class="btn" href="tel:+70000000000">Позвонить</a></div></header>
+<main class="wrap">
+<section class="hero">
+<h1>Ремонт квартир <span>под ключ</span> за 30 дней</h1>
+<p>Фиксированная цена в договоре. Работаем без предоплаты за материалы. Гарантия 2 года.</p>
+<a class="btn" href="#zayavka">Рассчитать стоимость</a>
+</section>
+
+<h2>Услуги и цены</h2>
+<div class="grid">
+<div class="card"><b>Косметический ремонт</b>Покраска, обои, потолки<div class="price">от 4 500 ₽/м²</div></div>
+<div class="card"><b>Капитальный ремонт</b>Полная замена коммуникаций<div class="price">от 9 000 ₽/м²</div></div>
+<div class="card"><b>Укладка плитки</b>Пол, стены, ванная<div class="price">от 1 200 ₽/м²</div></div>
+<div class="card"><b>Электрика</b>Замена проводки, щиток<div class="price">от 350 ₽/точка</div></div>
+</div>
+
+<h2>Почему мы</h2>
+<div class="grid">
+<div class="card"><b>Договор</b>Цена и сроки фиксируются</div>
+<div class="card"><b>Свои мастера</b>Без посредников</div>
+<div class="card"><b>Фотоотчёт</b>Каждый день присылаем фото</div>
+</div>
+
+<h2 id="zayavka">Оставить заявку</h2>
+<form id="f">
+<input name="name" placeholder="Ваше имя" required>
+<input name="phone" type="tel" placeholder="Телефон" required>
+<textarea name="msg" rows="3" placeholder="Что нужно сделать?"></textarea>
+<button class="btn" type="submit">Отправить заявку</button>
+<div id="ok">Спасибо! Мы позвоним в течение 15 минут.</div>
+</form>
+</main>
+<footer><div class="wrap">© РемонтПро. Это демонстрационный пример сайта-визитки.</div></footer>
+<script>
+document.getElementById('f').addEventListener('submit',function(e){
+  e.preventDefault();
+  /* В боевой версии здесь отправка заявки в Telegram владельца */
+  document.getElementById('ok').style.display='block';
+  this.reset();
+});
+</script>
+</body>
+</html>
