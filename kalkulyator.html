@@ -4,72 +4,99 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Калькулятор плитки</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Onest:wght@400;500;600&family=Oswald:wght@500;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
 <style>
+:root{--bg:#071315;--card:rgba(15,38,41,.75);--line:rgba(255,255,255,.1);--text:#f2ece2;--muted:#a3b7b5;--acc:#e07a4f;--acc2:#f2a982;--accText:#2a0d00;--glow1:rgba(224,122,79,.20);--glow2:rgba(42,127,130,.20);--fh:Manrope,system-ui,sans-serif;--fb:Manrope,system-ui,sans-serif;--r:16px}
+
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:system-ui,Segoe UI,Arial,sans-serif;background:#0b0b0b;color:#f2f2f2;padding:18px;max-width:480px;margin:0 auto}
-h1{font-size:22px;margin-bottom:4px}
-h1 span{color:#ffc400}
-.sub{color:#888;font-size:14px;margin-bottom:18px}
-.card{background:#161616;border:1px solid #262626;border-radius:16px;padding:16px;margin-bottom:14px}
-label{display:block;font-size:13px;color:#aaa;margin:10px 0 4px}
-input{width:100%;padding:12px;border-radius:10px;border:1px solid #333;background:#0f0f0f;color:#fff;font-size:17px}
+html{scroll-behavior:smooth}
+body{font-family:var(--fb);font-size:16px;line-height:1.55;color:var(--text);background:var(--bg);padding-top:78px;
+background-image:radial-gradient(620px 520px at 92% 2%,var(--glow1),transparent 70%),radial-gradient(520px 520px at 0% 45%,var(--glow2),transparent 70%);background-attachment:fixed}
+.wrap{max-width:1000px;margin:0 auto;padding:0 20px}
+h1,h2,h3{font-family:var(--fh);font-weight:var(--fw,700);letter-spacing:.01em}
+.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:10px;align-items:center;padding:24px 0 10px}
+.hero h1{font-size:clamp(32px,5vw,50px);line-height:1.08;margin-bottom:14px}
+.hero h1 em{font-style:normal;color:var(--acc)}
+.hero p{color:var(--muted);font-size:17px;max-width:480px;margin-bottom:24px}
+#hero3d{width:100%;height:430px;display:block}
+.btn{display:inline-block;background:linear-gradient(135deg,var(--acc2),var(--acc));color:var(--accText);font-weight:700;padding:14px 26px;border-radius:var(--r,14px);text-decoration:none;border:0;cursor:pointer;font-size:16px;font-family:inherit;box-shadow:inset 0 1px 0 rgba(255,255,255,.35)}
+.btn:hover{filter:brightness(1.08)}
+.btn.ghost{background:transparent;color:var(--text);border:1px solid var(--line);box-shadow:none;margin-left:10px}
+.sec{padding:34px 0}
+.sec h2{font-size:30px;margin-bottom:6px}
+.sub{color:var(--muted);margin-bottom:22px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r,16px);padding:20px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.card h3{font-size:18px;margin-bottom:6px}
+.card p{color:var(--muted);font-size:15px}
+.plist{background:var(--card);border:1px solid var(--line);border-radius:var(--r,16px);padding:6px 20px}
+.plist div{display:flex;justify-content:space-between;gap:12px;padding:14px 0;border-bottom:1px dashed var(--line)}
+.plist div:last-child{border:0}
+.plist b{color:var(--acc);white-space:nowrap}
+.plist small{display:block;color:var(--muted);font-size:13px}
+form,.calc{background:var(--card);border:1px solid var(--line);border-radius:var(--r,16px);padding:20px;display:grid;gap:12px;max-width:520px}
+label{font-size:13px;color:var(--muted);display:block;margin-bottom:4px}
+input,select,textarea{width:100%;padding:12px;border-radius:10px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--text);font-size:16px;font-family:inherit}
+select option{background:#111;color:#fff}
 .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-button{width:100%;margin-top:14px;padding:14px;border:0;border-radius:12px;background:#ffc400;color:#111;font-weight:800;font-size:17px}
-.res{display:none}
-.big{font-size:34px;font-weight:800;color:#ffc400}
-.line{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #222}
+.ok{display:none;color:#6fdc6f;font-weight:600}
+.big{font-family:var(--fh);font-size:36px;font-weight:700;color:var(--acc)}
+.line{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--line);font-size:15px}
+.chk{display:flex;align-items:center;gap:10px}
+.chk input{width:20px;height:20px}
+footer{border-top:1px solid var(--line);padding:26px 0;color:var(--muted);font-size:13px;text-align:center;margin-top:30px}
+/* стеклянная панель */
+.gbar{position:fixed;top:10px;left:50%;transform:translateX(-50%);width:calc(100% - 20px);max-width:760px;z-index:9999;border-radius:18px;padding:7px 8px 7px 14px;display:flex;align-items:center;justify-content:space-between;gap:8px;font-family:Onest,system-ui,sans-serif;font-size:14px;color:#ededf0;
+background:linear-gradient(180deg,rgba(40,40,46,.55),rgba(8,8,10,.42));backdrop-filter:blur(14px) saturate(150%);-webkit-backdrop-filter:blur(14px) saturate(150%);border:1px solid rgba(255,255,255,.14);box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 6px 20px rgba(0,0,0,.25)}
+.gbar a{color:inherit;text-decoration:none}
+.gbar .gb-back{font-weight:600;white-space:nowrap}
+.gbar .gb-back b{background:linear-gradient(135deg,var(--acc2),var(--acc));-webkit-background-clip:text;background-clip:text;color:transparent}
+.gbar details{position:relative}
+.gbar summary{list-style:none;cursor:pointer;padding:8px 12px;border-radius:10px;border:1px solid rgba(255,255,255,.07);background:rgba(0,0,0,.35);color:#c8c8d0;font-weight:500}
+.gbar summary::-webkit-details-marker{display:none}
+.gbar .gb-list{position:absolute;right:0;top:calc(100% + 8px);min-width:220px;padding:6px;border-radius:14px;background:linear-gradient(180deg,rgba(24,24,28,.94),rgba(8,8,10,.94));backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.12);display:flex;flex-direction:column;gap:2px}
+.gbar .gb-list a{padding:10px 12px;border-radius:9px;color:#c8c8d0}
+.gbar .gb-list a:hover{background:rgba(255,255,255,.07);color:#fff}
+.gbar .gb-list a.on{background:linear-gradient(145deg,#1a1a1e,#0b0b0d);color:#fff;box-shadow:inset 2px 0 0 var(--acc)}
+.gbar .gb-btn{background:linear-gradient(135deg,var(--acc2),var(--acc));color:var(--accText);font-weight:700;padding:9px 16px;border-radius:12px;white-space:nowrap;box-shadow:inset 0 1px 0 rgba(255,255,255,.35)}
+.gbar a:focus-visible,.gbar summary:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+@media(max-width:760px){.hero{grid-template-columns:1fr}#hero3d{height:320px;order:-1}.btn.ghost{margin:10px 0 0}}
+@media(max-width:480px){.gbar .gb-back span{display:none}.gbar .gb-btn{padding:9px 12px}}
+
 </style>
 </head>
 <body>
-<h1>Калькулятор <span>плитки</span></h1>
-<div class="sub">Сколько плитки и клея нужно на пол или стену</div>
+<nav class="gbar" aria-label="Меню"><a class="gb-back" href="index.html">← <b>Мекан</b><span> · примеры</span></a><details><summary>Другие примеры ▾</summary><div class="gb-list"><a href="salon.html">Барбершоп</a><a href="avtoservis.html">Шиномонтаж</a><a href="potolki.html">Натяжные потолки</a><a href="kalkulyator.html" class="on">Калькулятор плитки</a><a href="vizitka.html">Ремонт квартир</a><a href="index.html">Все услуги и цены</a></div></details><a class="gb-btn" href="https://t.me/mekanss">Заказать такой</a></nav>
+<main class="wrap">
+<section class="hero">
+<div><h1>Калькулятор <em>плитки</em></h1>
+<p>Сколько плитки, упаковок и клея нужно на пол или стену. С запасом на подрезку и учётом шва.</p>
+<a class="btn" href="#calc">Посчитать</a></div>
+<canvas id="hero3d" data-scene="tiles" data-acc="#e07a4f" aria-label="3D-модель"></canvas>
+</section>
 
-<div class="card">
-<div class="row">
-<div><label>Длина, м</label><input id="L" type="number" step="0.01" value="4"></div>
-<div><label>Ширина, м</label><input id="W" type="number" step="0.01" value="3"></div>
-</div>
-<div class="row">
-<div><label>Плитка: сторона A, см</label><input id="a" type="number" value="30"></div>
-<div><label>Плитка: сторона B, см</label><input id="b" type="number" value="30"></div>
-</div>
-<div class="row">
-<div><label>Запас на подрезку, %</label><input id="r" type="number" value="10"></div>
-<div><label>Шов, мм</label><input id="s" type="number" step="0.5" value="2"></div>
-</div>
-<div class="row">
-<div><label>Штук в упаковке</label><input id="p" type="number" value="11"></div>
-<div><label>Цена за м², ₽</label><input id="c" type="number" value="1200"></div>
-</div>
-<button onclick="calc()">Рассчитать</button>
-</div>
+<section class="sec" id="calc"><h2>Ваш расчёт</h2><div class="sub">Введите размеры помещения и плитки.</div>
+<div class="calc">
+<div class="row"><div><label>Длина, м</label><input id="L" type="number" step="0.01" value="4"></div><div><label>Ширина, м</label><input id="W" type="number" step="0.01" value="3"></div></div>
+<div class="row"><div><label>Плитка: сторона A, см</label><input id="a" type="number" value="30"></div><div><label>Плитка: сторона B, см</label><input id="b" type="number" value="30"></div></div>
+<div class="row"><div><label>Запас на подрезку, %</label><input id="r" type="number" value="10"></div><div><label>Шов, мм</label><input id="s" type="number" step="0.5" value="2"></div></div>
+<div class="row"><div><label>Штук в упаковке</label><input id="p" type="number" value="11"></div><div><label>Цена за м², ₽</label><input id="cc" type="number" value="1200"></div></div>
+<button class="btn" type="button" onclick="calc()">Рассчитать</button></div>
+<div class="calc" id="res" style="display:none;margin-top:14px"><div class="sub" style="margin:0">Нужно плитки</div><div class="big" id="pcs">—</div>
+<div class="line"><span>Площадь</span><b id="area"></b></div><div class="line"><span>Упаковок</span><b id="packs"></b></div>
+<div class="line"><span>Клей (5 кг на м²)</span><b id="glue"></b></div><div class="line"><span>Стоимость плитки</span><b id="cost"></b></div></div></section>
 
-<div class="card res" id="res">
-<div class="sub">Нужно плитки</div>
-<div class="big" id="pcs">—</div>
-<div class="line"><span>Площадь</span><b id="area"></b></div>
-<div class="line"><span>Упаковок</span><b id="packs"></b></div>
-<div class="line"><span>Клей (5 кг на м²)</span><b id="glue"></b></div>
-<div class="line"><span>Стоимость плитки</span><b id="cost"></b></div>
-</div>
-
+</main>
+<footer><div class="wrap">Демонстрационный пример сайта. Сделал Мекан, <a href="https://t.me/mekanss" style="color:var(--acc)">@mekanss</a></div></footer>
+<script type="module" src="scenes.js"></script>
 <script>
-function v(id){return parseFloat(document.getElementById(id).value)||0}
-function calc(){
-  var area=v('L')*v('W');
-  var s=v('s')/10; // мм -> см
-  var tileArea=((v('a')+s)*(v('b')+s))/10000; // м²
-  if(area<=0||tileArea<=0){return}
-  var pcs=Math.ceil(area/tileArea*(1+v('r')/100));
-  var packs=v('p')>0?Math.ceil(pcs/v('p')):0;
-  var glueBags=Math.ceil(area*5/25); // мешки по 25 кг
-  document.getElementById('pcs').textContent=pcs+' шт';
-  document.getElementById('area').textContent=area.toFixed(2)+' м²';
-  document.getElementById('packs').textContent=packs?packs+' уп.':'—';
-  document.getElementById('glue').textContent=Math.ceil(area*5)+' кг ('+glueBags+' меш.)';
-  document.getElementById('cost').textContent=Math.round(area*(1+v('r')/100)*v('c')).toLocaleString('ru-RU')+' ₽';
-  document.getElementById('res').style.display='block';
-}
-</script>
+function v(i){return parseFloat(document.getElementById(i).value)||0}
+function calc(){var area=v('L')*v('W'),s=v('s')/10,ta=((v('a')+s)*(v('b')+s))/10000;if(area<=0||ta<=0)return;
+var pcs=Math.ceil(area/ta*(1+v('r')/100)),packs=v('p')>0?Math.ceil(pcs/v('p')):0,bags=Math.ceil(area*5/25);
+document.getElementById('pcs').textContent=pcs+' шт';document.getElementById('area').textContent=area.toFixed(2)+' м²';
+document.getElementById('packs').textContent=packs?packs+' уп.':'—';document.getElementById('glue').textContent=Math.ceil(area*5)+' кг ('+bags+' меш.)';
+document.getElementById('cost').textContent=Math.round(area*(1+v('r')/100)*v('cc')).toLocaleString('ru-RU')+' ₽';document.getElementById('res').style.display='grid'}
+calc();</script>
 </body>
 </html>

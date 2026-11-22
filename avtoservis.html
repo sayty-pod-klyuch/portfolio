@@ -3,68 +3,105 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>АвтоМастер — автосервис, запись онлайн</title>
+<title>ШинМастер — шиномонтаж, запись онлайн</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Onest:wght@400;500;600&family=Oswald:wght@500;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
 <style>
+:root{--bg:#0c0d0f;--card:rgba(26,28,31,.8);--line:rgba(255,255,255,.1);--text:#f1f2f4;--muted:#a6abb3;--acc:#ff6a00;--acc2:#ffa13d;--accText:#1b0c00;--glow1:rgba(255,106,0,.20);--glow2:rgba(255,255,255,.04);--fh:Oswald,Impact,sans-serif;--fb:Onest,system-ui,sans-serif;--r:10px}
+
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:system-ui,Segoe UI,Arial,sans-serif;background:#0c0f14;color:#eef2f7;line-height:1.5}
-.wrap{max-width:860px;margin:0 auto;padding:0 18px}
-header{padding:16px 0;border-bottom:1px solid #1d2430}
-header .wrap{display:flex;justify-content:space-between;align-items:center}
-.logo{font-weight:800;font-size:20px;color:#ff6a00}
-.btn{display:inline-block;background:#ff6a00;color:#fff;font-weight:700;padding:12px 22px;border-radius:10px;text-decoration:none;border:0;font-size:16px;cursor:pointer}
-.hero{padding:50px 0 30px}
-.hero h1{font-size:34px;line-height:1.2;margin-bottom:12px}
-.hero h1 span{color:#ff6a00}
-.hero p{color:#9aa6b6;margin-bottom:22px;max-width:520px}
-h2{font-size:22px;margin:34px 0 14px}
-table{width:100%;border-collapse:collapse;background:#141a23;border-radius:12px;overflow:hidden}
-td,th{padding:12px 14px;text-align:left;border-bottom:1px solid #1d2430}
-th{color:#9aa6b6;font-weight:600;font-size:14px}
-td.p{color:#ff6a00;font-weight:700;white-space:nowrap}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
-.card{background:#141a23;border-radius:12px;padding:16px}
-form{background:#141a23;border-radius:12px;padding:18px;display:grid;gap:10px;max-width:440px}
-input,select{padding:12px;border-radius:8px;border:1px solid #2a3342;background:#0c0f14;color:#fff;font-size:16px}
-#ok{display:none;color:#6fdc6f}
-footer{padding:30px 0;color:#667;font-size:13px;text-align:center}
+html{scroll-behavior:smooth}
+body{font-family:var(--fb);font-size:16px;line-height:1.55;color:var(--text);background:var(--bg);padding-top:78px;
+background-image:radial-gradient(620px 520px at 92% 2%,var(--glow1),transparent 70%),radial-gradient(520px 520px at 0% 45%,var(--glow2),transparent 70%);background-attachment:fixed}
+.wrap{max-width:1000px;margin:0 auto;padding:0 20px}
+h1,h2,h3{font-family:var(--fh);font-weight:var(--fw,700);letter-spacing:.01em}
+.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:10px;align-items:center;padding:24px 0 10px}
+.hero h1{font-size:clamp(32px,5vw,50px);line-height:1.08;margin-bottom:14px}
+.hero h1 em{font-style:normal;color:var(--acc)}
+.hero p{color:var(--muted);font-size:17px;max-width:480px;margin-bottom:24px}
+#hero3d{width:100%;height:430px;display:block}
+.btn{display:inline-block;background:linear-gradient(135deg,var(--acc2),var(--acc));color:var(--accText);font-weight:700;padding:14px 26px;border-radius:var(--r,14px);text-decoration:none;border:0;cursor:pointer;font-size:16px;font-family:inherit;box-shadow:inset 0 1px 0 rgba(255,255,255,.35)}
+.btn:hover{filter:brightness(1.08)}
+.btn.ghost{background:transparent;color:var(--text);border:1px solid var(--line);box-shadow:none;margin-left:10px}
+.sec{padding:34px 0}
+.sec h2{font-size:30px;margin-bottom:6px}
+.sub{color:var(--muted);margin-bottom:22px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r,16px);padding:20px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.card h3{font-size:18px;margin-bottom:6px}
+.card p{color:var(--muted);font-size:15px}
+.plist{background:var(--card);border:1px solid var(--line);border-radius:var(--r,16px);padding:6px 20px}
+.plist div{display:flex;justify-content:space-between;gap:12px;padding:14px 0;border-bottom:1px dashed var(--line)}
+.plist div:last-child{border:0}
+.plist b{color:var(--acc);white-space:nowrap}
+.plist small{display:block;color:var(--muted);font-size:13px}
+form,.calc{background:var(--card);border:1px solid var(--line);border-radius:var(--r,16px);padding:20px;display:grid;gap:12px;max-width:520px}
+label{font-size:13px;color:var(--muted);display:block;margin-bottom:4px}
+input,select,textarea{width:100%;padding:12px;border-radius:10px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--text);font-size:16px;font-family:inherit}
+select option{background:#111;color:#fff}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ok{display:none;color:#6fdc6f;font-weight:600}
+.big{font-family:var(--fh);font-size:36px;font-weight:700;color:var(--acc)}
+.line{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--line);font-size:15px}
+.chk{display:flex;align-items:center;gap:10px}
+.chk input{width:20px;height:20px}
+footer{border-top:1px solid var(--line);padding:26px 0;color:var(--muted);font-size:13px;text-align:center;margin-top:30px}
+/* стеклянная панель */
+.gbar{position:fixed;top:10px;left:50%;transform:translateX(-50%);width:calc(100% - 20px);max-width:760px;z-index:9999;border-radius:18px;padding:7px 8px 7px 14px;display:flex;align-items:center;justify-content:space-between;gap:8px;font-family:Onest,system-ui,sans-serif;font-size:14px;color:#ededf0;
+background:linear-gradient(180deg,rgba(40,40,46,.55),rgba(8,8,10,.42));backdrop-filter:blur(14px) saturate(150%);-webkit-backdrop-filter:blur(14px) saturate(150%);border:1px solid rgba(255,255,255,.14);box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 6px 20px rgba(0,0,0,.25)}
+.gbar a{color:inherit;text-decoration:none}
+.gbar .gb-back{font-weight:600;white-space:nowrap}
+.gbar .gb-back b{background:linear-gradient(135deg,var(--acc2),var(--acc));-webkit-background-clip:text;background-clip:text;color:transparent}
+.gbar details{position:relative}
+.gbar summary{list-style:none;cursor:pointer;padding:8px 12px;border-radius:10px;border:1px solid rgba(255,255,255,.07);background:rgba(0,0,0,.35);color:#c8c8d0;font-weight:500}
+.gbar summary::-webkit-details-marker{display:none}
+.gbar .gb-list{position:absolute;right:0;top:calc(100% + 8px);min-width:220px;padding:6px;border-radius:14px;background:linear-gradient(180deg,rgba(24,24,28,.94),rgba(8,8,10,.94));backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.12);display:flex;flex-direction:column;gap:2px}
+.gbar .gb-list a{padding:10px 12px;border-radius:9px;color:#c8c8d0}
+.gbar .gb-list a:hover{background:rgba(255,255,255,.07);color:#fff}
+.gbar .gb-list a.on{background:linear-gradient(145deg,#1a1a1e,#0b0b0d);color:#fff;box-shadow:inset 2px 0 0 var(--acc)}
+.gbar .gb-btn{background:linear-gradient(135deg,var(--acc2),var(--acc));color:var(--accText);font-weight:700;padding:9px 16px;border-radius:12px;white-space:nowrap;box-shadow:inset 0 1px 0 rgba(255,255,255,.35)}
+.gbar a:focus-visible,.gbar summary:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+@media(max-width:760px){.hero{grid-template-columns:1fr}#hero3d{height:320px;order:-1}.btn.ghost{margin:10px 0 0}}
+@media(max-width:480px){.gbar .gb-back span{display:none}.gbar .gb-btn{padding:9px 12px}}
+
 </style>
 </head>
 <body>
-<header><div class="wrap"><div class="logo">АвтоМастер</div><a class="btn" href="tel:+70000000000">Позвонить</a></div></header>
+<nav class="gbar" aria-label="Меню"><a class="gb-back" href="index.html">← <b>Мекан</b><span> · примеры</span></a><details><summary>Другие примеры ▾</summary><div class="gb-list"><a href="salon.html">Барбершоп</a><a href="avtoservis.html" class="on">Шиномонтаж</a><a href="potolki.html">Натяжные потолки</a><a href="kalkulyator.html">Калькулятор плитки</a><a href="vizitka.html">Ремонт квартир</a><a href="index.html">Все услуги и цены</a></div></details><a class="gb-btn" href="https://t.me/mekanss">Заказать такой</a></nav>
 <main class="wrap">
 <section class="hero">
-<h1>Ремонт и обслуживание авто <span>с гарантией</span></h1>
-<p>Диагностика за 30 минут. Называем цену до начала работ. Гарантия на запчасти и работу 6 месяцев.</p>
-<a class="btn" href="#zapis">Записаться на диагностику</a>
+<div><h1 style="text-transform:uppercase">Шиномонтаж <em>без очереди</em></h1>
+<p>«ШинМастер»: сезонная замена колёс, балансировка, ремонт проколов. Называем цену до работ. Гарантия на всё 6 месяцев.</p>
+<a class="btn" href="#calc">Рассчитать цену</a><a class="btn ghost" href="#zapis">Записаться</a></div>
+<canvas id="hero3d" data-scene="wheel" data-acc="#ff6a00" aria-label="3D-модель"></canvas>
 </section>
-<h2>Прайс</h2>
-<table>
-<tr><th>Услуга</th><th>Цена</th></tr>
-<tr><td>Компьютерная диагностика</td><td class="p">1 000 ₽</td></tr>
-<tr><td>Замена масла и фильтра</td><td class="p">от 800 ₽</td></tr>
-<tr><td>Замена тормозных колодок</td><td class="p">от 1 500 ₽</td></tr>
-<tr><td>Ремонт подвески</td><td class="p">от 2 500 ₽</td></tr>
-<tr><td>Шиномонтаж (4 колеса)</td><td class="p">от 2 000 ₽</td></tr>
-</table>
-<h2>Почему мы</h2>
-<div class="grid">
-<div class="card"><b>Фиксированная цена</b><br>Называем до работ</div>
-<div class="card"><b>Гарантия 6 месяцев</b><br>На работу и запчасти</div>
-<div class="card"><b>Запись без очереди</b><br>Приезжайте в своё время</div>
-</div>
-<h2 id="zapis">Записаться</h2>
-<form id="f">
-<input id="car" placeholder="Марка и модель авто" required>
-<select id="s"><option>Диагностика</option><option>Замена масла</option><option>Тормоза</option><option>Подвеска</option><option>Шиномонтаж</option></select>
-<input id="d" type="date" required>
-<input id="ph" type="tel" placeholder="Телефон" required>
-<button class="btn" type="submit">Отправить заявку</button>
-<div id="ok">Заявка принята. Перезвоним в течение 15 минут.</div>
-</form>
+
+<section class="sec" id="price"><h2 style="text-transform:uppercase">Прайс</h2><div class="sub">Цены за одно колесо, если не указано другое.</div>
+<div class="plist">
+<div><span>Шиномонтаж, 4 колеса<small>снять, поставить, балансировка</small></span><b>от 2 000 ₽</b></div>
+<div><span>Балансировка<small>за колесо</small></span><b>300 ₽</b></div>
+<div><span>Ремонт прокола<small>жгут или грибок</small></span><b>500 ₽</b></div>
+<div><span>Сезонное хранение<small>комплект, 6 месяцев</small></span><b>1 500 ₽</b></div>
+<div><span>Диагностика подвески</span><b>1 000 ₽</b></div>
+</div></section>
+<section class="sec" id="calc"><h2 style="text-transform:uppercase">Калькулятор шиномонтажа</h2><div class="sub">Узнайте цену за 10 секунд.</div>
+<div class="calc">
+<div><label>Радиус колёс</label><select id="r" onchange="c()"><option value="2000">R13 – R15</option><option value="2400" selected>R16 – R17</option><option value="2800">R18 – R19</option><option value="3400">R20 и больше</option></select></div>
+<div><label>Количество колёс</label><select id="n" onchange="c()"><option value="1">1</option><option value="2">2</option><option value="4" selected>4</option></select></div>
+<div class="chk"><input id="b" type="checkbox" checked onchange="c()"><span>Балансировка (+300 ₽ за колесо)</span></div>
+<div class="chk"><input id="p" type="checkbox" onchange="c()"><span>Ремонт прокола (+500 ₽)</span></div>
+<div class="line"><span>Итого</span><div class="big" id="t">—</div></div></div></section>
+<section class="sec" id="zapis"><h2 style="text-transform:uppercase">Запись</h2><div class="sub">Приезжайте в своё время, без очереди.</div>
+<form data-demo data-msg="Заявка принята. Перезвоним в течение 15 минут."><input placeholder="Марка и модель авто" required>
+<div class="row"><div><label>Дата</label><input type="date" required></div><div><label>Время</label><select><option>09:00</option><option>11:00</option><option>13:00</option><option>15:00</option><option>17:00</option></select></div></div>
+<input type="tel" placeholder="Телефон" required><button class="btn" type="submit">Отправить заявку</button><div class="ok"></div></form></section>
+
 </main>
-<footer>Демонстрационный пример сайта для автосервиса</footer>
-<script>
-document.getElementById('f').addEventListener('submit',function(e){e.preventDefault();document.getElementById('ok').style.display='block'});
-</script>
+<footer><div class="wrap">Демонстрационный пример сайта. Сделал Мекан, <a href="https://t.me/mekanss" style="color:var(--acc)">@mekanss</a></div></footer>
+<script type="module" src="scenes.js"></script>
+<script>document.querySelectorAll('form[data-demo]').forEach(function(f){f.addEventListener('submit',function(e){e.preventDefault();var o=f.querySelector('.ok');if(f.dataset.msg){o.textContent=f.dataset.msg}o.style.display='block'})})</script><script>
+function c(){var base=+document.getElementById('r').value,n=+document.getElementById('n').value;
+var b=document.getElementById('b').checked?300*n:0,p=document.getElementById('p').checked?500:0;
+var total=Math.round(base*n/4)+b+p;document.getElementById('t').textContent=total.toLocaleString('ru-RU')+' ₽'}c();</script>
 </body>
 </html>

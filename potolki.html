@@ -3,76 +3,102 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Калькулятор натяжных потолков</title>
+<title>Натяжные потолки — калькулятор цены</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Onest:wght@400;500;600&family=Oswald:wght@500;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
 <style>
+:root{--bg:#050a18;--card:rgba(14,24,48,.72);--line:rgba(140,190,255,.16);--text:#eaf2ff;--muted:#93a7c8;--acc:#38bdf8;--acc2:#8fdcff;--accText:#03111d;--glow1:rgba(56,189,248,.20);--glow2:rgba(99,102,241,.12);--fh:Manrope,system-ui,sans-serif;--fb:Manrope,system-ui,sans-serif;--r:20px}
+
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:system-ui,Segoe UI,Arial,sans-serif;background:#f3f6fb;color:#1c2430;padding:18px;max-width:480px;margin:0 auto}
-h1{font-size:22px;margin-bottom:4px}
-h1 span{color:#1976d2}
-.sub{color:#6b7787;font-size:14px;margin-bottom:16px}
-.card{background:#fff;border-radius:16px;padding:16px;margin-bottom:14px;box-shadow:0 2px 10px rgba(25,118,210,.08)}
-label{display:block;font-size:13px;color:#6b7787;margin:10px 0 4px}
-input,select{width:100%;padding:12px;border-radius:10px;border:1px solid #d5deea;font-size:17px;background:#fff}
+html{scroll-behavior:smooth}
+body{font-family:var(--fb);font-size:16px;line-height:1.55;color:var(--text);background:var(--bg);padding-top:78px;
+background-image:radial-gradient(620px 520px at 92% 2%,var(--glow1),transparent 70%),radial-gradient(520px 520px at 0% 45%,var(--glow2),transparent 70%);background-attachment:fixed}
+.wrap{max-width:1000px;margin:0 auto;padding:0 20px}
+h1,h2,h3{font-family:var(--fh);font-weight:var(--fw,700);letter-spacing:.01em}
+.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:10px;align-items:center;padding:24px 0 10px}
+.hero h1{font-size:clamp(32px,5vw,50px);line-height:1.08;margin-bottom:14px}
+.hero h1 em{font-style:normal;color:var(--acc)}
+.hero p{color:var(--muted);font-size:17px;max-width:480px;margin-bottom:24px}
+#hero3d{width:100%;height:430px;display:block}
+.btn{display:inline-block;background:linear-gradient(135deg,var(--acc2),var(--acc));color:var(--accText);font-weight:700;padding:14px 26px;border-radius:var(--r,14px);text-decoration:none;border:0;cursor:pointer;font-size:16px;font-family:inherit;box-shadow:inset 0 1px 0 rgba(255,255,255,.35)}
+.btn:hover{filter:brightness(1.08)}
+.btn.ghost{background:transparent;color:var(--text);border:1px solid var(--line);box-shadow:none;margin-left:10px}
+.sec{padding:34px 0}
+.sec h2{font-size:30px;margin-bottom:6px}
+.sub{color:var(--muted);margin-bottom:22px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r,16px);padding:20px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.card h3{font-size:18px;margin-bottom:6px}
+.card p{color:var(--muted);font-size:15px}
+.plist{background:var(--card);border:1px solid var(--line);border-radius:var(--r,16px);padding:6px 20px}
+.plist div{display:flex;justify-content:space-between;gap:12px;padding:14px 0;border-bottom:1px dashed var(--line)}
+.plist div:last-child{border:0}
+.plist b{color:var(--acc);white-space:nowrap}
+.plist small{display:block;color:var(--muted);font-size:13px}
+form,.calc{background:var(--card);border:1px solid var(--line);border-radius:var(--r,16px);padding:20px;display:grid;gap:12px;max-width:520px}
+label{font-size:13px;color:var(--muted);display:block;margin-bottom:4px}
+input,select,textarea{width:100%;padding:12px;border-radius:10px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--text);font-size:16px;font-family:inherit}
+select option{background:#111;color:#fff}
 .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.chk{display:flex;align-items:center;gap:10px;margin:10px 0;font-size:16px}
+.ok{display:none;color:#6fdc6f;font-weight:600}
+.big{font-family:var(--fh);font-size:36px;font-weight:700;color:var(--acc)}
+.line{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--line);font-size:15px}
+.chk{display:flex;align-items:center;gap:10px}
 .chk input{width:20px;height:20px}
-.big{font-size:36px;font-weight:800;color:#1976d2}
-.line{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #edf1f7;font-size:15px}
-button{width:100%;margin-top:6px;padding:14px;border:0;border-radius:12px;background:#1976d2;color:#fff;font-weight:700;font-size:17px}
-#ok{display:none;color:#2e7d32;margin-top:10px;font-weight:600}
+footer{border-top:1px solid var(--line);padding:26px 0;color:var(--muted);font-size:13px;text-align:center;margin-top:30px}
+/* стеклянная панель */
+.gbar{position:fixed;top:10px;left:50%;transform:translateX(-50%);width:calc(100% - 20px);max-width:760px;z-index:9999;border-radius:18px;padding:7px 8px 7px 14px;display:flex;align-items:center;justify-content:space-between;gap:8px;font-family:Onest,system-ui,sans-serif;font-size:14px;color:#ededf0;
+background:linear-gradient(180deg,rgba(40,40,46,.55),rgba(8,8,10,.42));backdrop-filter:blur(14px) saturate(150%);-webkit-backdrop-filter:blur(14px) saturate(150%);border:1px solid rgba(255,255,255,.14);box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 6px 20px rgba(0,0,0,.25)}
+.gbar a{color:inherit;text-decoration:none}
+.gbar .gb-back{font-weight:600;white-space:nowrap}
+.gbar .gb-back b{background:linear-gradient(135deg,var(--acc2),var(--acc));-webkit-background-clip:text;background-clip:text;color:transparent}
+.gbar details{position:relative}
+.gbar summary{list-style:none;cursor:pointer;padding:8px 12px;border-radius:10px;border:1px solid rgba(255,255,255,.07);background:rgba(0,0,0,.35);color:#c8c8d0;font-weight:500}
+.gbar summary::-webkit-details-marker{display:none}
+.gbar .gb-list{position:absolute;right:0;top:calc(100% + 8px);min-width:220px;padding:6px;border-radius:14px;background:linear-gradient(180deg,rgba(24,24,28,.94),rgba(8,8,10,.94));backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.12);display:flex;flex-direction:column;gap:2px}
+.gbar .gb-list a{padding:10px 12px;border-radius:9px;color:#c8c8d0}
+.gbar .gb-list a:hover{background:rgba(255,255,255,.07);color:#fff}
+.gbar .gb-list a.on{background:linear-gradient(145deg,#1a1a1e,#0b0b0d);color:#fff;box-shadow:inset 2px 0 0 var(--acc)}
+.gbar .gb-btn{background:linear-gradient(135deg,var(--acc2),var(--acc));color:var(--accText);font-weight:700;padding:9px 16px;border-radius:12px;white-space:nowrap;box-shadow:inset 0 1px 0 rgba(255,255,255,.35)}
+.gbar a:focus-visible,.gbar summary:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+@media(max-width:760px){.hero{grid-template-columns:1fr}#hero3d{height:320px;order:-1}.btn.ghost{margin:10px 0 0}}
+@media(max-width:480px){.gbar .gb-back span{display:none}.gbar .gb-btn{padding:9px 12px}}
+
 </style>
 </head>
 <body>
-<h1>Калькулятор <span>натяжных потолков</span></h1>
-<div class="sub">Узнайте примерную цену за 30 секунд</div>
-<div class="card">
-<div class="row">
-<div><label>Длина, м</label><input id="L" type="number" step="0.1" value="5" oninput="calc()"></div>
-<div><label>Ширина, м</label><input id="W" type="number" step="0.1" value="4" oninput="calc()"></div>
-</div>
-<label>Тип полотна</label>
-<select id="type" onchange="calc()">
-<option value="450">Матовое, 450 ₽/м²</option>
-<option value="550" selected>Сатиновое, 550 ₽/м²</option>
-<option value="650">Глянцевое, 650 ₽/м²</option>
-<option value="950">Тканевое, 950 ₽/м²</option>
-</select>
-<div class="row">
-<div><label>Светильников, шт</label><input id="sp" type="number" value="6" oninput="calc()"></div>
-<div><label>Люстр, шт</label><input id="ch" type="number" value="1" oninput="calc()"></div>
-</div>
-<div class="chk"><input id="corn" type="checkbox" onchange="calc()"><span>Скрытый карниз для штор (+1 500 ₽/м)</span></div>
-</div>
-<div class="card">
-<div class="sub">Примерная стоимость</div>
-<div class="big" id="total">—</div>
-<div class="line"><span>Площадь</span><b id="area"></b></div>
-<div class="line"><span>Полотно</span><b id="cl"></b></div>
-<div class="line"><span>Светильники и люстры</span><b id="lm"></b></div>
-<div class="line"><span>Карниз</span><b id="cn"></b></div>
-</div>
-<div class="card">
-<input id="ph" type="tel" placeholder="Ваш телефон">
-<button onclick="send()">Заказать замер бесплатно</button>
-<div id="ok">Спасибо! Мастер позвонит в течение 15 минут.</div>
-</div>
-<script>
-function n(id){return parseFloat(document.getElementById(id).value)||0}
-function fmt(x){return Math.round(x).toLocaleString('ru-RU')+' ₽'}
-function calc(){
-  var L=n('L'),W=n('W'),a=L*W;
-  var cloth=a*n('type');
-  var lamps=n('sp')*350+n('ch')*500;
-  var corn=document.getElementById('corn').checked?(L*1500):0;
-  var t=cloth+lamps+corn;
-  document.getElementById('area').textContent=a.toFixed(1)+' м²';
-  document.getElementById('cl').textContent=fmt(cloth);
-  document.getElementById('lm').textContent=fmt(lamps);
-  document.getElementById('cn').textContent=corn?fmt(corn):'—';
-  document.getElementById('total').textContent=fmt(t);
-}
-function send(){document.getElementById('ok').style.display='block'}
-calc();
-</script>
+<nav class="gbar" aria-label="Меню"><a class="gb-back" href="index.html">← <b>Мекан</b><span> · примеры</span></a><details><summary>Другие примеры ▾</summary><div class="gb-list"><a href="salon.html">Барбершоп</a><a href="avtoservis.html">Шиномонтаж</a><a href="potolki.html" class="on">Натяжные потолки</a><a href="kalkulyator.html">Калькулятор плитки</a><a href="vizitka.html">Ремонт квартир</a><a href="index.html">Все услуги и цены</a></div></details><a class="gb-btn" href="https://t.me/mekanss">Заказать такой</a></nav>
+<main class="wrap">
+<section class="hero">
+<div><h1>Натяжные потолки <em>за один день</em></h1>
+<p>Монтаж без пыли и грязи. Гарантия 10 лет. Бесплатный замер и точная цена на месте. Посчитайте стоимость сами.</p>
+<a class="btn" href="#calc">Рассчитать потолок</a></div>
+<canvas id="hero3d" data-scene="ceiling" data-acc="#38bdf8" aria-label="3D-модель"></canvas>
+</section>
+
+<section class="sec" id="calc"><h2>Калькулятор натяжных потолков</h2><div class="sub">Примерная цена за 30 секунд.</div>
+<div class="calc">
+<div class="row"><div><label>Длина, м</label><input id="L" type="number" step="0.1" value="5" oninput="c()"></div><div><label>Ширина, м</label><input id="W" type="number" step="0.1" value="4" oninput="c()"></div></div>
+<div><label>Тип полотна</label><select id="ty" onchange="c()"><option value="450">Матовое, 450 ₽/м²</option><option value="550" selected>Сатиновое, 550 ₽/м²</option><option value="650">Глянцевое, 650 ₽/м²</option><option value="950">Тканевое, 950 ₽/м²</option></select></div>
+<div class="row"><div><label>Светильников, шт</label><input id="sp" type="number" value="6" oninput="c()"></div><div><label>Люстр, шт</label><input id="ch" type="number" value="1" oninput="c()"></div></div>
+<div class="chk"><input id="co" type="checkbox" onchange="c()"><span>Скрытый карниз (+1 500 ₽/м)</span></div>
+<div class="line"><span>Площадь</span><b id="ar"></b></div><div class="line"><span>Полотно</span><b id="cl"></b></div>
+<div class="line"><span>Светильники и люстры</span><b id="lm"></b></div><div class="line"><span>Карниз</span><b id="cn"></b></div>
+<div class="line"><span>Примерно</span><div class="big" id="t">—</div></div></div></section>
+<section class="sec"><h2>Почему мы</h2><div class="grid">
+<div class="card"><h3>За 1 день</h3><p>Большинство комнат делаем за день.</p></div>
+<div class="card"><h3>Гарантия 10 лет</h3><p>На полотно и монтаж.</p></div>
+<div class="card"><h3>Без предоплаты за замер</h3><p>Мастер приедет и посчитает бесплатно.</p></div></div></section>
+<section class="sec"><h2>Бесплатный замер</h2><form data-demo data-msg="Спасибо! Мастер позвонит в течение 15 минут."><input type="tel" placeholder="Ваш телефон" required><button class="btn" type="submit">Заказать замер</button><div class="ok"></div></form></section>
+
+</main>
+<footer><div class="wrap">Демонстрационный пример сайта. Сделал Мекан, <a href="https://t.me/mekanss" style="color:var(--acc)">@mekanss</a></div></footer>
+<script type="module" src="scenes.js"></script>
+<script>document.querySelectorAll('form[data-demo]').forEach(function(f){f.addEventListener('submit',function(e){e.preventDefault();var o=f.querySelector('.ok');if(f.dataset.msg){o.textContent=f.dataset.msg}o.style.display='block'})})</script><script>
+function n(i){return parseFloat(document.getElementById(i).value)||0}
+function f(x){return Math.round(x).toLocaleString('ru-RU')+' ₽'}
+function c(){var L=n('L'),W=n('W'),a=L*W,cl=a*n('ty'),lm=n('sp')*350+n('ch')*500,cn=document.getElementById('co').checked?L*1500:0;
+document.getElementById('ar').textContent=a.toFixed(1)+' м²';document.getElementById('cl').textContent=f(cl);document.getElementById('lm').textContent=f(lm);
+document.getElementById('cn').textContent=cn?f(cn):'—';document.getElementById('t').textContent=f(cl+lm+cn)}c();</script>
 </body>
 </html>

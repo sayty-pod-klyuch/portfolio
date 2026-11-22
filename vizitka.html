@@ -4,70 +4,96 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>РемонтПро — ремонт квартир под ключ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Onest:wght@400;500;600&family=Oswald:wght@500;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
 <style>
+:root{--bg:#101214;--card:rgba(30,33,37,.8);--line:rgba(255,255,255,.1);--text:#f3f3ee;--muted:#aaaca6;--acc:#ffd21f;--acc2:#ffe36b;--accText:#1d1700;--glow1:rgba(255,210,31,.13);--glow2:rgba(120,130,140,.10);--fh:Oswald,Impact,sans-serif;--fb:Onest,system-ui,sans-serif;--r:8px}
+
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:system-ui,Segoe UI,Arial,sans-serif;background:#0d0d0d;color:#f2f2f2;line-height:1.5}
-.wrap{max-width:900px;margin:0 auto;padding:0 18px}
-header{padding:16px 0;border-bottom:1px solid #222}
-header .wrap{display:flex;justify-content:space-between;align-items:center}
-.logo{font-weight:800;font-size:20px;color:#ffc400}
-.btn{display:inline-block;background:#ffc400;color:#111;font-weight:700;padding:12px 22px;border-radius:12px;text-decoration:none;border:0;font-size:16px;cursor:pointer}
-.hero{padding:60px 0 40px}
-.hero h1{font-size:34px;line-height:1.2;margin-bottom:14px}
-.hero h1 span{color:#ffc400}
-.hero p{color:#bbb;margin-bottom:24px;max-width:520px}
-h2{font-size:24px;margin:40px 0 18px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
-.card{background:#171717;border:1px solid #262626;border-radius:16px;padding:18px}
-.card b{display:block;margin-bottom:6px}
-.price{color:#ffc400;font-weight:800;font-size:18px;margin-top:8px}
-form{display:grid;gap:10px;max-width:420px}
-input,textarea{padding:12px;border-radius:10px;border:1px solid #333;background:#171717;color:#fff;font-size:16px}
-footer{margin-top:50px;padding:24px 0;border-top:1px solid #222;color:#777;font-size:14px}
-#ok{display:none;color:#6fdc6f}
+html{scroll-behavior:smooth}
+body{font-family:var(--fb);font-size:16px;line-height:1.55;color:var(--text);background:var(--bg);padding-top:78px;
+background-image:radial-gradient(620px 520px at 92% 2%,var(--glow1),transparent 70%),radial-gradient(520px 520px at 0% 45%,var(--glow2),transparent 70%);background-attachment:fixed}
+.wrap{max-width:1000px;margin:0 auto;padding:0 20px}
+h1,h2,h3{font-family:var(--fh);font-weight:var(--fw,700);letter-spacing:.01em}
+.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:10px;align-items:center;padding:24px 0 10px}
+.hero h1{font-size:clamp(32px,5vw,50px);line-height:1.08;margin-bottom:14px}
+.hero h1 em{font-style:normal;color:var(--acc)}
+.hero p{color:var(--muted);font-size:17px;max-width:480px;margin-bottom:24px}
+#hero3d{width:100%;height:430px;display:block}
+.btn{display:inline-block;background:linear-gradient(135deg,var(--acc2),var(--acc));color:var(--accText);font-weight:700;padding:14px 26px;border-radius:var(--r,14px);text-decoration:none;border:0;cursor:pointer;font-size:16px;font-family:inherit;box-shadow:inset 0 1px 0 rgba(255,255,255,.35)}
+.btn:hover{filter:brightness(1.08)}
+.btn.ghost{background:transparent;color:var(--text);border:1px solid var(--line);box-shadow:none;margin-left:10px}
+.sec{padding:34px 0}
+.sec h2{font-size:30px;margin-bottom:6px}
+.sub{color:var(--muted);margin-bottom:22px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r,16px);padding:20px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.card h3{font-size:18px;margin-bottom:6px}
+.card p{color:var(--muted);font-size:15px}
+.plist{background:var(--card);border:1px solid var(--line);border-radius:var(--r,16px);padding:6px 20px}
+.plist div{display:flex;justify-content:space-between;gap:12px;padding:14px 0;border-bottom:1px dashed var(--line)}
+.plist div:last-child{border:0}
+.plist b{color:var(--acc);white-space:nowrap}
+.plist small{display:block;color:var(--muted);font-size:13px}
+form,.calc{background:var(--card);border:1px solid var(--line);border-radius:var(--r,16px);padding:20px;display:grid;gap:12px;max-width:520px}
+label{font-size:13px;color:var(--muted);display:block;margin-bottom:4px}
+input,select,textarea{width:100%;padding:12px;border-radius:10px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--text);font-size:16px;font-family:inherit}
+select option{background:#111;color:#fff}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ok{display:none;color:#6fdc6f;font-weight:600}
+.big{font-family:var(--fh);font-size:36px;font-weight:700;color:var(--acc)}
+.line{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--line);font-size:15px}
+.chk{display:flex;align-items:center;gap:10px}
+.chk input{width:20px;height:20px}
+footer{border-top:1px solid var(--line);padding:26px 0;color:var(--muted);font-size:13px;text-align:center;margin-top:30px}
+/* стеклянная панель */
+.gbar{position:fixed;top:10px;left:50%;transform:translateX(-50%);width:calc(100% - 20px);max-width:760px;z-index:9999;border-radius:18px;padding:7px 8px 7px 14px;display:flex;align-items:center;justify-content:space-between;gap:8px;font-family:Onest,system-ui,sans-serif;font-size:14px;color:#ededf0;
+background:linear-gradient(180deg,rgba(40,40,46,.55),rgba(8,8,10,.42));backdrop-filter:blur(14px) saturate(150%);-webkit-backdrop-filter:blur(14px) saturate(150%);border:1px solid rgba(255,255,255,.14);box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 6px 20px rgba(0,0,0,.25)}
+.gbar a{color:inherit;text-decoration:none}
+.gbar .gb-back{font-weight:600;white-space:nowrap}
+.gbar .gb-back b{background:linear-gradient(135deg,var(--acc2),var(--acc));-webkit-background-clip:text;background-clip:text;color:transparent}
+.gbar details{position:relative}
+.gbar summary{list-style:none;cursor:pointer;padding:8px 12px;border-radius:10px;border:1px solid rgba(255,255,255,.07);background:rgba(0,0,0,.35);color:#c8c8d0;font-weight:500}
+.gbar summary::-webkit-details-marker{display:none}
+.gbar .gb-list{position:absolute;right:0;top:calc(100% + 8px);min-width:220px;padding:6px;border-radius:14px;background:linear-gradient(180deg,rgba(24,24,28,.94),rgba(8,8,10,.94));backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.12);display:flex;flex-direction:column;gap:2px}
+.gbar .gb-list a{padding:10px 12px;border-radius:9px;color:#c8c8d0}
+.gbar .gb-list a:hover{background:rgba(255,255,255,.07);color:#fff}
+.gbar .gb-list a.on{background:linear-gradient(145deg,#1a1a1e,#0b0b0d);color:#fff;box-shadow:inset 2px 0 0 var(--acc)}
+.gbar .gb-btn{background:linear-gradient(135deg,var(--acc2),var(--acc));color:var(--accText);font-weight:700;padding:9px 16px;border-radius:12px;white-space:nowrap;box-shadow:inset 0 1px 0 rgba(255,255,255,.35)}
+.gbar a:focus-visible,.gbar summary:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+@media(max-width:760px){.hero{grid-template-columns:1fr}#hero3d{height:320px;order:-1}.btn.ghost{margin:10px 0 0}}
+@media(max-width:480px){.gbar .gb-back span{display:none}.gbar .gb-btn{padding:9px 12px}}
+
 </style>
 </head>
 <body>
-<header><div class="wrap"><div class="logo">РемонтПро</div><a class="btn" href="tel:+70000000000">Позвонить</a></div></header>
+<nav class="gbar" aria-label="Меню"><a class="gb-back" href="index.html">← <b>Мекан</b><span> · примеры</span></a><details><summary>Другие примеры ▾</summary><div class="gb-list"><a href="salon.html">Барбершоп</a><a href="avtoservis.html">Шиномонтаж</a><a href="potolki.html">Натяжные потолки</a><a href="kalkulyator.html">Калькулятор плитки</a><a href="vizitka.html" class="on">Ремонт квартир</a><a href="index.html">Все услуги и цены</a></div></details><a class="gb-btn" href="https://t.me/mekanss">Заказать такой</a></nav>
 <main class="wrap">
 <section class="hero">
-<h1>Ремонт квартир <span>под ключ</span> за 30 дней</h1>
-<p>Фиксированная цена в договоре. Работаем без предоплаты за материалы. Гарантия 2 года.</p>
-<a class="btn" href="#zayavka">Рассчитать стоимость</a>
+<div><h1 style="text-transform:uppercase">Ремонт квартир <em>под ключ</em></h1>
+<p>«РемонтПро»: фиксированная цена в договоре, свои мастера, фотоотчёт каждый день. Гарантия 2 года.</p>
+<a class="btn" href="#zayavka">Рассчитать стоимость</a><a class="btn ghost" href="#price">Цены</a></div>
+<canvas id="hero3d" data-scene="hammer" data-acc="#ffd21f" aria-label="3D-модель"></canvas>
 </section>
 
-<h2>Услуги и цены</h2>
-<div class="grid">
-<div class="card"><b>Косметический ремонт</b>Покраска, обои, потолки<div class="price">от 4 500 ₽/м²</div></div>
-<div class="card"><b>Капитальный ремонт</b>Полная замена коммуникаций<div class="price">от 9 000 ₽/м²</div></div>
-<div class="card"><b>Укладка плитки</b>Пол, стены, ванная<div class="price">от 1 200 ₽/м²</div></div>
-<div class="card"><b>Электрика</b>Замена проводки, щиток<div class="price">от 350 ₽/точка</div></div>
-</div>
+<section class="sec" id="price"><h2 style="text-transform:uppercase">Услуги и цены</h2><div class="sub">Итоговая цена фиксируется в договоре.</div>
+<div class="plist">
+<div><span>Косметический ремонт<small>покраска, обои, потолки</small></span><b>от 4 500 ₽/м²</b></div>
+<div><span>Капитальный ремонт<small>замена коммуникаций</small></span><b>от 9 000 ₽/м²</b></div>
+<div><span>Укладка плитки<small>пол, стены, ванная</small></span><b>от 1 200 ₽/м²</b></div>
+<div><span>Электрика<small>проводка, щиток</small></span><b>от 350 ₽/точка</b></div>
+</div></section>
+<section class="sec"><h2 style="text-transform:uppercase">Почему мы</h2><div class="grid">
+<div class="card"><h3>Договор</h3><p>Цена и сроки фиксируются.</p></div>
+<div class="card"><h3>Свои мастера</h3><p>Без посредников и субподряда.</p></div>
+<div class="card"><h3>Фотоотчёт</h3><p>Каждый день присылаем фото.</p></div></div></section>
+<section class="sec" id="zayavka"><h2 style="text-transform:uppercase">Оставить заявку</h2>
+<form data-demo data-msg="Спасибо! Мы позвоним в течение 15 минут."><input placeholder="Ваше имя" required><input type="tel" placeholder="Телефон" required>
+<textarea rows="3" placeholder="Что нужно сделать?"></textarea><button class="btn" type="submit">Отправить заявку</button><div class="ok"></div></form></section>
 
-<h2>Почему мы</h2>
-<div class="grid">
-<div class="card"><b>Договор</b>Цена и сроки фиксируются</div>
-<div class="card"><b>Свои мастера</b>Без посредников</div>
-<div class="card"><b>Фотоотчёт</b>Каждый день присылаем фото</div>
-</div>
-
-<h2 id="zayavka">Оставить заявку</h2>
-<form id="f">
-<input name="name" placeholder="Ваше имя" required>
-<input name="phone" type="tel" placeholder="Телефон" required>
-<textarea name="msg" rows="3" placeholder="Что нужно сделать?"></textarea>
-<button class="btn" type="submit">Отправить заявку</button>
-<div id="ok">Спасибо! Мы позвоним в течение 15 минут.</div>
-</form>
 </main>
-<footer><div class="wrap">© РемонтПро. Это демонстрационный пример сайта-визитки.</div></footer>
-<script>
-document.getElementById('f').addEventListener('submit',function(e){
-  e.preventDefault();
-  /* В боевой версии здесь отправка заявки в Telegram владельца */
-  document.getElementById('ok').style.display='block';
-  this.reset();
-});
-</script>
+<footer><div class="wrap">Демонстрационный пример сайта. Сделал Мекан, <a href="https://t.me/mekanss" style="color:var(--acc)">@mekanss</a></div></footer>
+<script type="module" src="scenes.js"></script>
+<script>document.querySelectorAll('form[data-demo]').forEach(function(f){f.addEventListener('submit',function(e){e.preventDefault();var o=f.querySelector('.ok');if(f.dataset.msg){o.textContent=f.dataset.msg}o.style.display='block'})})</script>
 </body>
 </html>
