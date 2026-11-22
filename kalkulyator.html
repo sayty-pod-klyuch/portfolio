@@ -3,49 +3,145 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Калькулятор плитки</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Onest:wght@400;500;600&family=Oswald:wght@500;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+<title>ПлиткаПро — укладка плитки, калькулятор и запись на замер</title>
+<meta name="description" content="Укладка плитки от 1 200 ₽/м². Калькулятор плитки и клея, запись мастера на замер онлайн.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#071315;--card:rgba(15,38,41,.75);--line:rgba(255,255,255,.1);--text:#f2ece2;--muted:#a3b7b5;--acc:#e07a4f;--acc2:#f2a982;--accText:#2a0d00;--glow1:rgba(224,122,79,.20);--glow2:rgba(42,127,130,.20);--fh:Manrope,system-ui,sans-serif;--fb:Manrope,system-ui,sans-serif;--r:16px}
-
+:root{--bg:#06140f;--bgrgb:6,20,15;--card:rgba(14,38,32,.84);--card2:#141414;--line:rgba(255,255,255,.12);--text:#f3ecde;--muted:#a7bab2;--acc:#e3a72f;--acc2:#f3cd7a;--accText:#231700;--accrgb:227,167,47;--ok:#5fd08a;--fh:'Playfair Display',Georgia,serif;--fl:Onest,system-ui,sans-serif;--fb:Onest,system-ui,sans-serif}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:var(--fb);font-size:16px;line-height:1.55;color:var(--text);background:var(--bg);padding-top:78px;
-background-image:radial-gradient(620px 520px at 92% 2%,var(--glow1),transparent 70%),radial-gradient(520px 520px at 0% 45%,var(--glow2),transparent 70%);background-attachment:fixed}
-.wrap{max-width:1000px;margin:0 auto;padding:0 20px}
-h1,h2,h3{font-family:var(--fh);font-weight:var(--fw,700);letter-spacing:.01em}
-.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:10px;align-items:center;padding:24px 0 10px}
-.hero h1{font-size:clamp(32px,5vw,50px);line-height:1.08;margin-bottom:14px}
-.hero h1 em{font-style:normal;color:var(--acc)}
-.hero p{color:var(--muted);font-size:17px;max-width:480px;margin-bottom:24px}
-#hero3d{width:100%;height:430px;display:block}
-.btn{display:inline-block;background:linear-gradient(135deg,var(--acc2),var(--acc));color:var(--accText);font-weight:700;padding:14px 26px;border-radius:var(--r,14px);text-decoration:none;border:0;cursor:pointer;font-size:16px;font-family:inherit;box-shadow:inset 0 1px 0 rgba(255,255,255,.35)}
+body{font-family:var(--fb);font-size:16px;line-height:1.55;color:var(--text);background:var(--bg)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+h1,h2,h3{font-family:var(--fh);font-weight:700}
+.lab{font-family:var(--fl);text-transform:uppercase;letter-spacing:.06em}
+.btn{display:inline-block;background:linear-gradient(135deg,var(--acc2),var(--acc));color:var(--accText);font-family:var(--fl);font-weight:700;font-size:16px;text-transform:uppercase;letter-spacing:.07em;padding:16px 32px;border-radius:14px;text-decoration:none;border:0;cursor:pointer;box-shadow:inset 0 1px 0 rgba(255,255,255,.35)}
 .btn:hover{filter:brightness(1.08)}
-.btn.ghost{background:transparent;color:var(--text);border:1px solid var(--line);box-shadow:none;margin-left:10px}
-.sec{padding:34px 0}
-.sec h2{font-size:30px;margin-bottom:6px}
-.sub{color:var(--muted);margin-bottom:22px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r,16px);padding:20px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
-.card h3{font-size:18px;margin-bottom:6px}
-.card p{color:var(--muted);font-size:15px}
-.plist{background:var(--card);border:1px solid var(--line);border-radius:var(--r,16px);padding:6px 20px}
-.plist div{display:flex;justify-content:space-between;gap:12px;padding:14px 0;border-bottom:1px dashed var(--line)}
-.plist div:last-child{border:0}
-.plist b{color:var(--acc);white-space:nowrap}
-.plist small{display:block;color:var(--muted);font-size:13px}
-form,.calc{background:var(--card);border:1px solid var(--line);border-radius:var(--r,16px);padding:20px;display:grid;gap:12px;max-width:520px}
-label{font-size:13px;color:var(--muted);display:block;margin-bottom:4px}
-input,select,textarea{width:100%;padding:12px;border-radius:10px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--text);font-size:16px;font-family:inherit}
-select option{background:#111;color:#fff}
+.btn[disabled]{opacity:.4;cursor:not-allowed;filter:none}
+.btn.line{background:transparent;color:var(--text);border:1px solid var(--line);box-shadow:none}
+
+/* шапка и главный экран */
+.top{position:absolute;top:76px;left:0;right:0;z-index:5}
+.top .wrap{display:flex;justify-content:space-between;align-items:center}
+.logo{font-family:var(--fh);font-weight:800;font-size:22px;letter-spacing:.12em;text-transform:uppercase}
+.logo small{display:block;font-family:var(--fl);font-weight:400;font-size:10px;letter-spacing:.35em;color:var(--acc2);margin-top:2px}
+.burger{width:46px;height:46px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.06);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);cursor:pointer;display:flex;flex-direction:column;justify-content:center;gap:6px;padding:0 11px}
+.burger span{display:block;height:2px;background:var(--acc2);border-radius:2px}
+.burger span:nth-child(2){width:70%;align-self:flex-end}
+.hero{position:relative;min-height:88vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:150px 20px 80px;isolation:isolate;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;z-index:-2;background:url(hero_tile.jpg) 50% 40%/cover no-repeat;filter:brightness(.8) saturate(1.05) contrast(1.1)}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(ellipse at 50% 40%,rgba(var(--bgrgb),.1),rgba(var(--bgrgb),.75) 80%),linear-gradient(180deg,rgba(var(--bgrgb),.5),rgba(var(--bgrgb),.1) 40%,var(--bg) 100%)}
+.hero h1{font-size:clamp(46px,12vw,124px);line-height:1;letter-spacing:.04em;text-transform:uppercase;font-weight:800}
+.hero .from{font-family:var(--fl);font-weight:500;font-size:clamp(18px,3.4vw,30px);text-transform:uppercase;letter-spacing:.08em;margin:18px 0 30px}
+.hero .from b{color:var(--acc2)}
+.arrow{width:48px;height:48px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.08);color:#fff;font-size:20px;display:flex;align-items:center;justify-content:center;text-decoration:none;margin-top:34px}
+.ticker{border-top:1px solid var(--acc);border-bottom:1px solid var(--line);overflow:hidden;white-space:nowrap;background:#0e0e0e}
+.ticker div{display:inline-block;padding:16px 0;font-family:var(--fh);font-weight:600;font-size:20px;text-transform:uppercase;letter-spacing:.08em;animation:tk 28s linear infinite}
+.ticker i{color:var(--acc);font-style:normal;margin:0 24px}
+@keyframes tk{to{transform:translateX(-50%)}}
+
+/* меню */
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(84vw,340px);z-index:10000;transform:translateX(105%);transition:transform .28s ease;padding:24px 20px;border-radius:26px 0 0 26px;display:flex;flex-direction:column;gap:12px;
+background:linear-gradient(180deg,rgba(40,40,46,.55),rgba(8,8,10,.82));backdrop-filter:blur(16px) saturate(150%);-webkit-backdrop-filter:blur(16px) saturate(150%);border:1px solid var(--line)}
+.drawer.open{transform:none}
+.drawer a.mi{display:block;padding:15px 16px;border-radius:12px;color:var(--text);text-decoration:none;font-family:var(--fl);font-size:17px;text-transform:uppercase;letter-spacing:.08em}
+.drawer a.mi:hover{background:rgba(255,255,255,.07)}
+.shade{position:fixed;inset:0;background:rgba(0,0,0,.6);opacity:0;pointer-events:none;transition:.28s;z-index:9999}
+.shade.open{opacity:1;pointer-events:auto}
+.dclose{align-self:flex-end;width:42px;height:42px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:#fff;font-size:18px;cursor:pointer}
+
+section{padding:56px 0}
+h2{font-size:clamp(28px,5vw,46px);margin-bottom:8px;text-transform:uppercase;letter-spacing:.02em}
+h2 em{font-style:normal;color:var(--acc)}
+.sub{color:var(--muted);margin-bottom:26px}
+
+/* о нас */
+.about{display:grid;grid-template-columns:1fr 1fr;gap:34px;align-items:center}
+.about .ph{position:relative}
+.about .ph img{width:100%;height:480px;object-fit:cover;border-radius:24px;border:1px solid var(--line);filter:brightness(.85) saturate(.85)}
+.badge{position:absolute;right:-12px;bottom:-22px;width:140px;height:140px;border-radius:50%;background:var(--bg);border:1px solid var(--acc);display:flex;align-items:center;justify-content:center;text-decoration:none;color:var(--acc2)}
+.badge svg{position:absolute;inset:0;animation:spin 18s linear infinite}
+.badge span{font-size:30px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.facts{display:grid;gap:14px;margin-top:22px}
+.fact{display:flex;gap:16px;align-items:flex-start;padding:16px 18px;border:1px solid var(--line);border-radius:16px;background:var(--card)}
+.fact b{font-family:var(--fl);font-size:22px;color:var(--acc)}
+.fact h3{font-size:18px;margin-bottom:2px}
+.fact p{color:var(--muted);font-size:14px}
+
+/* услуги */
+.tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px}
+.tab{font-family:var(--fl);text-transform:uppercase;letter-spacing:.07em;font-size:14px;padding:12px 22px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--text);cursor:pointer}
+.tab.on{background:var(--acc);border-color:var(--acc);color:var(--accText);font-weight:700}
+.svc{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.s{padding:18px;border:1px solid var(--line);border-radius:16px;background:var(--card);cursor:pointer;transition:.15s;position:relative}
+.s:hover{border-color:rgba(var(--accrgb),.5)}
+.s.on{border-color:var(--acc);background:rgba(var(--accrgb),.08)}
+.s h3{font-family:var(--fl);font-weight:500;font-size:17px;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px;padding-right:30px}
+.s .pr{color:var(--acc2);font-family:var(--fl);font-size:18px}
+.s .pr small{color:var(--muted);font-size:13px;margin-left:8px;font-family:var(--fb)}
+.s p{color:var(--muted);font-size:14px;margin-top:6px}
+.s .tick{position:absolute;top:14px;right:14px;width:22px;height:22px;border-radius:50%;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:13px;color:transparent}
+.s.on .tick{background:var(--acc);border-color:var(--acc);color:var(--accText)}
+
+/* запись */
+.bk{display:grid;grid-template-columns:300px 1fr;gap:18px;align-items:start}
+.sum{position:sticky;top:84px;padding:22px;border:1px solid var(--line);border-radius:20px;background:var(--card)}
+.sum h3{font-size:19px;margin-bottom:4px}
+.sum .ad{color:var(--muted);font-size:14px}
+.sum hr{border:0;border-top:1px solid var(--line);margin:14px 0}
+.sum .ln{display:flex;justify-content:space-between;gap:10px;font-size:14px;padding:3px 0}
+.sum .tot{font-family:var(--fl);font-size:24px;color:var(--acc2)}
+.sum .mt{color:var(--muted);font-size:13px}
+.steps{display:grid;gap:18px}
+.st{padding:22px;border:1px solid var(--line);border-radius:20px;background:var(--card)}
+.st h3{font-family:var(--fl);font-weight:500;font-size:17px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:14px}
+.st h3 b{display:inline-flex;width:28px;height:28px;border-radius:50%;background:var(--acc);color:var(--accText);align-items:center;justify-content:center;margin-right:10px;font-size:14px}
+.places{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.pl{padding:14px;border:1px solid var(--line);border-radius:14px;cursor:pointer;background:rgba(255,255,255,.02)}
+.pl.on{border-color:var(--acc);background:rgba(var(--accrgb),.08)}
+.pl b{display:block;font-size:15px}
+.pl span{color:var(--muted);font-size:13px}
+.mt2{display:grid;grid-template-columns:1fr 1.1fr;gap:16px}
+.mlist{display:grid;gap:8px;align-content:start}
+.m{display:flex;align-items:center;gap:12px;padding:10px 12px;border:1px solid var(--line);border-radius:14px;cursor:pointer;background:rgba(255,255,255,.02)}
+.m.on{border-color:var(--acc);background:rgba(var(--accrgb),.08)}
+.av{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--fl);font-size:18px;color:#fff}
+.m b{display:block;font-size:15px}
+.m span{color:var(--muted);font-size:12px}
+.cal{border:1px solid var(--line);border-radius:16px;padding:14px;background:rgba(255,255,255,.02)}
+.ch{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.ch b{font-family:var(--fl);text-transform:uppercase;letter-spacing:.08em}
+.ch button{width:32px;height:32px;border-radius:8px;border:1px solid var(--line);background:transparent;color:var(--text);cursor:pointer;font-size:16px}
+.ch button[disabled]{opacity:.25;cursor:default}
+.cg{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center}
+.cg .w{font-size:11px;color:var(--muted);padding:4px 0;text-transform:uppercase}
+.cg .d{padding:9px 0;border-radius:8px;font-size:14px;cursor:pointer;border:1px solid transparent}
+.cg .d:hover{border-color:var(--line)}
+.cg .d.off{color:#4c4a46;cursor:default;pointer-events:none}
+.cg .d.on{background:var(--acc);color:var(--accText);font-weight:700}
+.free h4{font-family:var(--fl);font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:var(--acc2);margin:14px 0 8px;font-size:14px}
+.sl{display:flex;flex-wrap:wrap;gap:6px;padding-bottom:8px;border-bottom:1px solid var(--line);margin-bottom:8px}
+.sl:last-child{border:0}
+.t{padding:8px 11px;border-radius:8px;border:1px solid var(--line);font-size:14px;cursor:pointer;background:rgba(255,255,255,.03)}
+.t:hover{border-color:var(--acc)}
+.t.off{color:#4c4a46;cursor:default;pointer-events:none;text-decoration:line-through;border-color:rgba(255,255,255,.05)}
+.t.on{background:var(--acc);color:var(--accText);border-color:var(--acc);font-weight:700}
+.hint{color:var(--muted);font-size:14px}
 .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.ok{display:none;color:#6fdc6f;font-weight:600}
-.big{font-family:var(--fh);font-size:36px;font-weight:700;color:var(--acc)}
-.line{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--line);font-size:15px}
-.chk{display:flex;align-items:center;gap:10px}
-.chk input{width:20px;height:20px}
-footer{border-top:1px solid var(--line);padding:26px 0;color:var(--muted);font-size:13px;text-align:center;margin-top:30px}
+input{width:100%;padding:14px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--text);font-size:16px;font-family:inherit}
+.done{display:none;padding:22px;border:1px solid var(--ok);border-radius:18px;background:rgba(95,208,138,.08);margin-top:14px}
+.done b{color:var(--ok);font-family:var(--fl);font-size:20px;text-transform:uppercase;letter-spacing:.05em}
+
+/* адреса */
+.addr{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.addr .card{padding:20px;border:1px solid var(--line);border-radius:18px;background:var(--card)}
+.addr b{display:block;font-family:var(--fl);text-transform:uppercase;letter-spacing:.06em;color:var(--acc2);margin-bottom:4px}
+footer{border-top:1px solid var(--line);padding:30px 0 40px;color:var(--muted);font-size:13px}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+footer a{color:var(--acc2)}
+@media(max-width:900px){.bk{grid-template-columns:1fr}.sum{position:static}.mt2{grid-template-columns:1fr}.about{grid-template-columns:1fr}.about .ph img{height:340px}.badge{right:8px}}
+@media(max-width:520px){.row{grid-template-columns:1fr}.st{padding:16px}.top{top:78px}}
 /* стеклянная панель */
 .gbar{position:fixed;top:10px;left:50%;transform:translateX(-50%);width:calc(100% - 20px);max-width:760px;z-index:9999;border-radius:18px;padding:7px 8px 7px 14px;display:flex;align-items:center;justify-content:space-between;gap:8px;font-family:Onest,system-ui,sans-serif;font-size:14px;color:#ededf0;
 background:linear-gradient(180deg,rgba(40,40,46,.55),rgba(8,8,10,.42));backdrop-filter:blur(14px) saturate(150%);-webkit-backdrop-filter:blur(14px) saturate(150%);border:1px solid rgba(255,255,255,.14);box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 6px 20px rgba(0,0,0,.25)}
@@ -67,36 +163,187 @@ background:linear-gradient(180deg,rgba(40,40,46,.55),rgba(8,8,10,.42));backdrop-
 </style>
 </head>
 <body>
-<nav class="gbar" aria-label="Меню"><a class="gb-back" href="index.html">← <b>Мекан</b><span> · примеры</span></a><details><summary>Другие примеры ▾</summary><div class="gb-list"><a href="salon.html">Барбершоп «Лезвие»</a><a href="salon2.html">Барбершоп «Кремень»</a><a href="avtoservis.html">Шиномонтаж</a><a href="potolki.html">Натяжные потолки</a><a href="kalkulyator.html" class="on">Калькулятор плитки</a><a href="vizitka.html">Ремонт квартир</a><a href="index.html">Все услуги и цены</a></div></details><a class="gb-btn" href="https://t.me/mekanss">Заказать такой</a></nav>
+<nav class="gbar" aria-label="Меню"><a class="gb-back" href="index.html">← <b>Мекан</b><span> · примеры</span></a><details><summary>Другие примеры ▾</summary><div class="gb-list"><a href="salon.html">Барбершоп «Лезвие»</a><a href="salon2.html">Барбершоп «Кремень»</a><a href="avtoservis.html">Шиномонтаж «ШинМастер»</a><a href="potolki.html">Потолки «Небо»</a><a href="kalkulyator.html" class="on">Плитка «ПлиткаПро»</a><a href="vizitka.html">Ремонт «РемонтПро»</a><a href="index.html">Все услуги и цены</a></div></details><a class="gb-btn" href="https://t.me/mekanss">Заказать такой</a></nav>
+<div class="top"><div class="wrap">
+  <div class="logo">ПлиткаПро<small>УКЛАДКА ПЛИТКИ</small></div>
+  <button class="burger" id="burger" aria-label="Меню"><span></span><span></span><span></span></button>
+</div></div>
+
+<header class="hero">
+  <h1>ПлиткаПро</h1>
+  <div class="from">Укладка плитки от <b>1 200 ₽/м²</b></div>
+  <a class="btn" href="#zapis">Записаться на замер</a>
+  <a class="arrow" href="#about" aria-label="Вниз">↓</a>
+</header>
+<div class="ticker"><div id="tk"></div></div>
+
+<div class="shade" id="shade"></div>
+<aside class="drawer" id="drawer" aria-label="Меню сайта">
+  <button class="dclose" id="dclose" aria-label="Закрыть">✕</button>
+  <a class="mi" href="#about">О нас</a>
+  <a class="mi" href="#uslugi">Услуги</a>
+  <a class="mi" href="#zapis">Онлайн-запись</a>
+  <a class="mi" href="#adresa">Адреса</a>
+</aside>
+
 <main class="wrap">
-<section class="hero">
-<div><h1>Калькулятор <em>плитки</em></h1>
-<p>Сколько плитки, упаковок и клея нужно на пол или стену. С запасом на подрезку и учётом шва.</p>
-<a class="btn" href="#calc">Посчитать</a></div>
-<canvas id="hero3d" data-scene="tiles" data-acc="#e07a4f" aria-label="3D-модель"></canvas>
-</section>
+<section id="about"><div class="about"><div class="ph"><img src="hero_tile.jpg" alt="" loading="lazy" style="object-position:30% 50%"><a class="badge" href="#zapis" aria-label="Онлайн-запись"><svg viewBox="0 0 140 140"><defs><path id="c" d="M70,70 m-52,0 a52,52 0 1,1 104,0 a52,52 0 1,1 -104,0"/></defs><text font-family="Oswald,sans-serif" font-size="13" letter-spacing="3" fill="currentColor"><textPath href="#c">ОНЛАЙН ЗАПИСЬ · ОНЛАЙН ЗАПИСЬ ·</textPath></text></svg><span>✓</span></a></div><div><h2>Ровно. Чисто. <em>Навсегда.</em></h2><p class="sub" style="margin-bottom:0">Кладём плитку по уровню, с ровными швами и без пустот. Сначала считаем материал, потом работаем, и в смете нет сюрпризов.</p><div class="facts"><div class="fact"><b>01</b><div><h3>Расчёт материала</h3><p>Посчитаем плитку и клей с запасом на подрезку.</p></div></div><div class="fact"><b>02</b><div><h3>Ровные швы</h3><p>Крестики, уровень, лазер. Проверяем каждый ряд.</p></div></div><div class="fact"><b>03</b><div><h3>Гарантия 3 года</h3><p>На укладку, по договору.</p></div></div></div></div></div></section>
 
-<section class="sec" id="calc"><h2>Ваш расчёт</h2><div class="sub">Введите размеры помещения и плитки.</div>
-<div class="calc">
-<div class="row"><div><label>Длина, м</label><input id="L" type="number" step="0.01" value="4"></div><div><label>Ширина, м</label><input id="W" type="number" step="0.01" value="3"></div></div>
-<div class="row"><div><label>Плитка: сторона A, см</label><input id="a" type="number" value="30"></div><div><label>Плитка: сторона B, см</label><input id="b" type="number" value="30"></div></div>
-<div class="row"><div><label>Запас на подрезку, %</label><input id="r" type="number" value="10"></div><div><label>Шов, мм</label><input id="s" type="number" step="0.5" value="2"></div></div>
-<div class="row"><div><label>Штук в упаковке</label><input id="p" type="number" value="11"></div><div><label>Цена за м², ₽</label><input id="cc" type="number" value="1200"></div></div>
-<button class="btn" type="button" onclick="calc()">Рассчитать</button></div>
-<div class="calc" id="res" style="display:none;margin-top:14px"><div class="sub" style="margin:0">Нужно плитки</div><div class="big" id="pcs">—</div>
-<div class="line"><span>Площадь</span><b id="area"></b></div><div class="line"><span>Упаковок</span><b id="packs"></b></div>
-<div class="line"><span>Клей (5 кг на м²)</span><b id="glue"></b></div><div class="line"><span>Стоимость плитки</span><b id="cost"></b></div></div></section>
+<style>
+.tc{padding:22px;border:1px solid var(--line);border-radius:20px;background:var(--card);display:grid;gap:12px;max-width:640px}
+.tc label{font-size:13px;color:var(--muted);display:block;margin-bottom:4px}
+.tc .r2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tc .ln{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--line);font-size:15px}
+.tc .big{font-family:var(--fh);font-size:40px;font-weight:700;color:var(--acc2)}
+</style>
+<section id="calc"><h2>Калькулятор <em>плитки</em></h2><div class="sub">Сколько плитки, упаковок и клея нужно. С запасом на подрезку и учётом шва.</div>
+<div class="tc">
+<div class="r2"><div><label>Длина, м</label><input id="k_L" type="number" step="0.01" value="4"></div><div><label>Ширина, м</label><input id="k_W" type="number" step="0.01" value="3"></div></div>
+<div class="r2"><div><label>Плитка: сторона A, см</label><input id="k_a" type="number" value="30"></div><div><label>Плитка: сторона B, см</label><input id="k_b" type="number" value="30"></div></div>
+<div class="r2"><div><label>Запас на подрезку, %</label><input id="k_r" type="number" value="10"></div><div><label>Шов, мм</label><input id="k_s" type="number" step="0.5" value="2"></div></div>
+<div class="r2"><div><label>Штук в упаковке</label><input id="k_p" type="number" value="11"></div><div><label>Цена за м², ₽</label><input id="k_c" type="number" value="1200"></div></div>
+<div class="ln"><span>Площадь</span><b id="k_area"></b></div><div class="ln"><span>Упаковок</span><b id="k_packs"></b></div><div class="ln"><span>Клей (5 кг на м²)</span><b id="k_glue"></b></div><div class="ln"><span>Стоимость плитки</span><b id="k_cost"></b></div>
+<div class="ln" style="border:0"><span>Нужно плитки</span><div class="big" id="k_pcs"></div></div></div></section>
+<section id="uslugi"><h2>Услуги и <em>цены</em></h2><div class="sub">Нажмите на услугу, чтобы добавить её в запись.</div>
+<div class="tabs" id="tabs"></div><div class="svc" id="svc"></div></section>
 
+<section id="zapis"><h2>Запись на <em>замер</em></h2><div class="sub">Адрес, услуги, мастер, свободное время. Четыре шага.</div>
+<div class="bk">
+  <aside class="sum" id="sum"></aside>
+  <div class="steps">
+    <div class="st"><h3><b>1</b>Барбершоп</h3><div class="places" id="places"></div></div>
+    <div class="st"><h3><b>2</b>Услуги</h3><div class="hint" id="s2hint">Замер бесплатный. Добавьте нужные работы, чтобы мастер приехал подготовленным.</div><div class="tabs" id="tabs2" style="margin:12px 0"></div><div class="svc" id="svc2"></div></div>
+    <div class="st"><h3><b>3</b>Мастер и время</h3>
+      <div class="mt2"><div class="mlist" id="mlist"></div>
+      <div><div class="cal"><div class="ch"><button id="prev" aria-label="Назад">‹</button><b id="mon"></b><button id="next" aria-label="Вперёд">›</button></div><div class="cg" id="cg"></div></div>
+      <div class="free" id="free"><div class="hint" style="margin-top:14px">Выберите день, чтобы увидеть, когда свободно.</div></div></div></div></div>
+    <div class="st"><h3><b>4</b>Контакты</h3>
+      <div class="row"><input id="nm" placeholder="Ваше имя"><input id="ph" type="tel" placeholder="Телефон"></div>
+      <div style="margin-top:14px"><button class="btn" id="go" disabled>Записаться</button> <span class="hint" id="gohint">Выберите услугу, мастера, день и время.</span></div>
+      <div class="done" id="done"></div></div>
+  </div>
+</div></section>
+
+<section id="adresa"><h2>Наши <em>адреса</em></h2><div class="sub">Ежедневно с 10:00 до 22:00.</div><div class="addr" id="addr"></div></section>
 </main>
-<footer><div class="wrap">Демонстрационный пример сайта. Сделал Мекан, <a href="https://t.me/mekanss" style="color:var(--acc)">@mekanss</a></div></footer>
-<script type="module" src="scenes.js"></script>
+
+<footer><div class="wrap"><div>© ПлиткаПро. Демонстрационный пример сайта, адреса и цены вымышлены.</div>
+<div>Сделал Мекан, <a href="https://t.me/mekanss">@mekanss</a> · Фото: Pexels</div></div></footer>
+
 <script>
-function v(i){return parseFloat(document.getElementById(i).value)||0}
-function calc(){var area=v('L')*v('W'),s=v('s')/10,ta=((v('a')+s)*(v('b')+s))/10000;if(area<=0||ta<=0)return;
-var pcs=Math.ceil(area/ta*(1+v('r')/100)),packs=v('p')>0?Math.ceil(pcs/v('p')):0,bags=Math.ceil(area*5/25);
-document.getElementById('pcs').textContent=pcs+' шт';document.getElementById('area').textContent=area.toFixed(2)+' м²';
-document.getElementById('packs').textContent=packs?packs+' уп.':'—';document.getElementById('glue').textContent=Math.ceil(area*5)+' кг ('+bags+' меш.)';
-document.getElementById('cost').textContent=Math.round(area*(1+v('r')/100)*v('cc')).toLocaleString('ru-RU')+' ₽';document.getElementById('res').style.display='grid'}
-calc();</script>
+var PLACES=[{"id": "p1", "n": "Москва, север", "a": "Дмитровское ш., 60", "h": "пн–вс 10:00–22:00"}, {"id": "p2", "n": "Москва, восток", "a": "Щёлковское ш., 33", "h": "пн–вс 10:00–22:00"}, {"id": "p3", "n": "Красногорск", "a": "Ильинский б-р, 5", "h": "пн–вс 10:00–22:00"}, {"id": "p4", "n": "Подольск", "a": "ул. Кирова, 18", "h": "пн–вс 10:00–22:00"}];
+var MASTERS=[{"id": "m1", "n": "Артур", "l": "Мастер-плиточник", "c": "#c2410c"}, {"id": "m2", "n": "Николай", "l": "Мастер-плиточник", "c": "#0e7490"}, {"id": "m3", "n": "Вадим", "l": "Бригадир", "c": "#4d7c0f"}, {"id": "m4", "n": "Эльдар", "l": "Мастер-плиточник", "c": "#7e22ce"}, {"id": "m5", "n": "Семён", "l": "Мастер-плиточник", "c": "#be123c"}, {"id": "m6", "n": "Гоша", "l": "Бригадир", "c": "#1d4ed8"}];
+var SERV={"Укладка": [{"id": "a1", "n": "Плитка на пол, 1 м²", "p": 1200, "m": 60, "d": "Цена за квадратный метр, клей и затирка отдельно."}, {"id": "a2", "n": "Плитка на стены, 1 м²", "p": 1400, "m": 60, "d": "Ровные швы, работа по уровню."}, {"id": "a3", "n": "Керамогранит, 1 м²", "p": 1800, "m": 90, "d": "Крупный формат, сложная резка."}, {"id": "a4", "n": "Мозаика, 1 м²", "p": 2500, "m": 120, "d": "Мелкий формат, акценты и панно."}, {"id": "a5", "n": "Ванная под ключ, до 5 м²", "p": 38000, "m": 240, "d": "Подготовка, гидроизоляция, укладка стен и пола."}], "Подготовка": [{"id": "b1", "n": "Выравнивание пола, 1 м²", "p": 500, "m": 60, "d": "Стяжка или наливной пол."}, {"id": "b2", "n": "Гидроизоляция, 1 м²", "p": 400, "m": 30, "d": "Для ванных, санузлов и кухонь."}, {"id": "b3", "n": "Демонтаж старой плитки, 1 м²", "p": 600, "m": 60, "d": "С вывозом мусора."}], "Замер и расчёт": [{"id": "c1", "n": "Выезд мастера и замер", "p": 0, "m": 30, "d": "Бесплатно. Посчитаем материал и работу."}, {"id": "c2", "n": "Подбор плитки с дизайнером", "p": 0, "m": 60, "d": "Цвет, формат и раскладка под ваш интерьер."}]};
+
+var ALL=[];Object.keys(SERV).forEach(function(k){SERV[k].forEach(function(s){ALL.push(s)})});
+var S={place:'p1',svc:{},master:'any',date:null,time:null,tab1:Object.keys(SERV)[0],tab2:Object.keys(SERV)[0],year:0,month:0};
+var now=new Date();S.year=now.getFullYear();S.month=now.getMonth();
+var MN=['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];
+var DN=['ПН','ВТ','СР','ЧТ','ПТ','СБ','ВС'];
+function $(i){return document.getElementById(i)}
+function fmt(x){return x.toLocaleString('ru-RU')}
+function pad(n){return n<10?'0'+n:''+n}
+function dstr(y,m,d){return y+'-'+pad(m+1)+'-'+pad(d)}
+function hash(s){var h=2166136261;for(var i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)}return (h>>>0)}
+/* время: слоты по 30 минут 10:00..21:30 (индексы 0..23) */
+var SLOTS=[];for(var i=0;i<24;i++){var mm=10*60+i*30;SLOTS.push(pad(Math.floor(mm/60))+':'+pad(mm%60))}
+function need(){var t=0;ALL.forEach(function(s){if(S.svc[s.id])t+=s.m});return Math.max(1,Math.ceil((t||30)/30))}
+function busy(mid,ds,i){return hash(S.place+mid+ds+i)%100<38}
+function slotFree(mid,ds,i,isToday){
+  var n=need();if(i+n>24)return false;
+  for(var k=0;k<n;k++){if(busy(mid,ds,i+k))return false;if(isToday){var mm=10*60+(i+k)*30;if(mm<=now.getHours()*60+now.getMinutes()+20)return false}}
+  return true}
+function freeFor(ds,i,isToday){
+  if(S.master==='any'){return MASTERS.some(function(m){return slotFree(m.id,ds,i,isToday)})}
+  return slotFree(S.master,ds,i,isToday)}
+function dayHasFree(ds,isToday){for(var i=0;i<24;i++){if(freeFor(ds,i,isToday))return true}return false}
+
+/* услуги */
+function svcCard(s){var on=S.svc[s.id];return '<div class="s'+(on?' on':'')+'" data-s="'+s.id+'"><span class="tick">✓</span><h3>'+s.n+'</h3><div class="pr">'+fmt(s.p)+' ₽<small>'+s.m+' мин</small></div><p>'+s.d+'</p></div>'}
+function drawTabs(el,key,cb){el.innerHTML='';Object.keys(SERV).forEach(function(k){var b=document.createElement('button');b.className='tab'+(S[key]===k?' on':'');b.textContent=k;b.onclick=function(){S[key]=k;cb()};el.appendChild(b)})}
+function drawSvc(){
+  drawTabs($('tabs'),'tab1',drawSvc);drawTabs($('tabs2'),'tab2',drawSvc);
+  $('svc').innerHTML=SERV[S.tab1].map(svcCard).join('');
+  $('svc2').innerHTML=SERV[S.tab2].map(svcCard).join('');
+  document.querySelectorAll('.s').forEach(function(e){e.onclick=function(){var id=e.getAttribute('data-s');S.svc[id]=!S.svc[id];S.time=null;all()}});
+}
+/* адреса и мастера */
+function drawPlaces(){
+  $('places').innerHTML=PLACES.map(function(p){return '<div class="pl'+(S.place===p.id?' on':'')+'" data-p="'+p.id+'"><b>'+p.n+'</b><span>'+p.a+'<br>'+p.h+'</span></div>'}).join('');
+  document.querySelectorAll('.pl').forEach(function(e){e.onclick=function(){S.place=e.getAttribute('data-p');S.time=null;all()}});
+  $('addr').innerHTML=PLACES.map(function(p){return '<div class="card"><b>'+p.n+'</b>'+p.a+'<br><span style="color:var(--muted)">'+p.h+'</span></div>'}).join('');
+}
+function drawMasters(){
+  var h='<div class="m'+(S.master==='any'?' on':'')+'" data-m="any"><div class="av" style="background:#3f3f46">★</div><div><b>Любой мастер</b><span>Первый свободный</span></div></div>';
+  MASTERS.forEach(function(m){h+='<div class="m'+(S.master===m.id?' on':'')+'" data-m="'+m.id+'"><div class="av" style="background:'+m.c+'">'+m.n[0]+'</div><div><b>'+m.n+'</b><span>'+m.l+'</span></div></div>'});
+  $('mlist').innerHTML=h;
+  document.querySelectorAll('.m').forEach(function(e){e.onclick=function(){S.master=e.getAttribute('data-m');S.time=null;all()}});
+}
+/* календарь «Когда свободно» */
+function drawCal(){
+  var y=S.year,m=S.month;$('mon').textContent=MN[m]+' '+y;
+  var first=new Date(y,m,1),off=(first.getDay()+6)%7,days=new Date(y,m+1,0).getDate();
+  var h=DN.map(function(d){return '<div class="w">'+d+'</div>'}).join('');
+  for(var i=0;i<off;i++)h+='<div></div>';
+  var td=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+  for(var d=1;d<=days;d++){
+    var dt=new Date(y,m,d),ds=dstr(y,m,d),isT=dt.getTime()===td.getTime();
+    var ok=dt>=td&&dayHasFree(ds,isT);
+    h+='<div class="d'+(ok?'':' off')+(S.date===ds?' on':'')+'" data-d="'+ds+'">'+d+'</div>';
+  }
+  $('cg').innerHTML=h;
+  var maxM=new Date(now.getFullYear(),now.getMonth()+2,1);
+  $('prev').disabled=(y===now.getFullYear()&&m===now.getMonth());
+  $('next').disabled=(new Date(y,m+1,1)>=maxM);
+  document.querySelectorAll('.d:not(.off)').forEach(function(e){e.onclick=function(){S.date=e.getAttribute('data-d');S.time=null;all()}});
+}
+function drawFree(){
+  if(!S.date){$('free').innerHTML='<div class="hint" style="margin-top:14px">Выберите день, чтобы увидеть, когда свободно.</div>';return}
+  var p=S.date.split('-'),dt=new Date(+p[0],+p[1]-1,+p[2]),isT=dt.toDateString()===now.toDateString();
+  var wd=['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота'][dt.getDay()];
+  var groups=[['Утро',0,4],['День',4,18],['Вечер',18,24]],h='<h4>'+dt.getDate()+' '+MN[dt.getMonth()].toLowerCase()+', '+wd+'</h4>';
+  groups.forEach(function(g){var s='';for(var i=g[1];i<g[2];i++){var f=freeFor(S.date,i,isT);s+='<div class="t'+(f?'':' off')+(S.time===SLOTS[i]?' on':'')+'" data-t="'+SLOTS[i]+'">'+SLOTS[i]+'</div>'}h+='<div class="sl">'+s+'</div>'});
+  $('free').innerHTML='<div class="free">'+h+'</div>';
+  document.querySelectorAll('.t:not(.off)').forEach(function(e){e.onclick=function(){S.time=e.getAttribute('data-t');all()}});
+}
+/* итог слева */
+function drawSum(){
+  var pl=PLACES.filter(function(p){return p.id===S.place})[0],lines='',tp=0,tm=0;
+  ALL.forEach(function(s){if(S.svc[s.id]){tp+=s.p;tm+=s.m;lines+='<div class="ln"><span>'+s.n+'</span><b>'+fmt(s.p)+' ₽</b></div>'}});
+  var mn=S.master==='any'?'Любой мастер':MASTERS.filter(function(m){return m.id===S.master})[0].n;
+  var when=S.date&&S.time?S.date.split('-').reverse().join('.')+', '+S.time:'не выбрано';
+  $('sum').innerHTML='<h3>'+pl.n+'</h3><div class="ad">'+pl.a+'<br>'+pl.h+'</div><hr>'+(lines||'<div class="mt">Услуги не выбраны</div>')+
+   '<hr><div class="ln"><span class="mt">Мастер</span><span>'+mn+'</span></div><div class="ln"><span class="mt">Когда</span><span>'+when+'</span></div>'+
+   '<hr><div class="ln"><span class="mt">Итого'+(tm?', '+tm+' мин':'')+'</span><span class="tot">'+fmt(tp)+' ₽</span></div>';
+  var ready=tp>0&&S.date&&S.time;
+  $('go').disabled=!ready;
+  $('gohint').textContent=ready?'':(tp>0?'Выберите день и время.':'Выберите хотя бы одну услугу.');
+}
+function all(){drawSvc();drawPlaces();drawMasters();drawCal();drawFree();drawSum()}
+$('prev').onclick=function(){if(S.month===0){S.month=11;S.year--}else S.month--;drawCal()};
+$('next').onclick=function(){if(S.month===11){S.month=0;S.year++}else S.month++;drawCal()};
+$('go').onclick=function(){
+  var n=$('nm').value.trim(),ph=$('ph').value.trim();
+  if(!n||!ph){$('gohint').textContent='Укажите имя и телефон.';return}
+  var pl=PLACES.filter(function(p){return p.id===S.place})[0],names=[],tp=0;
+  ALL.forEach(function(s){if(S.svc[s.id]){names.push(s.n);tp+=s.p}});
+  var mn=S.master==='any'?'любой свободный мастер':MASTERS.filter(function(m){return m.id===S.master})[0].n;
+  $('done').style.display='block';
+  $('done').innerHTML='<b>Вы записаны, '+n.replace(/</g,'')+'!</b><p style="margin-top:8px">'+pl.n+', '+pl.a+'<br>'+names.join(', ')+'<br>'+S.date.split('-').reverse().join('.')+' в '+S.time+', '+mn+'<br>К оплате в барбершопе: '+fmt(tp)+' ₽</p><p class="hint" style="margin-top:8px">Это демонстрация: настоящая запись уйдёт владельцу в Telegram.</p>';
+};
+/* меню, бегущая строка */
+var dr=$('drawer'),sh=$('shade');function od(o){dr.classList.toggle('open',o);sh.classList.toggle('open',o)}
+$('burger').onclick=function(){od(true)};$('dclose').onclick=function(){od(false)};sh.onclick=function(){od(false)};
+dr.querySelectorAll('a.mi').forEach(function(a){a.addEventListener('click',function(){od(false)})});
+var tk='';for(var i=0;i<16;i++)tk+='ПлиткаПро<i>•</i>';$('tk').innerHTML=tk;
+(function(){function v(i){return parseFloat(document.getElementById(i).value)||0}
+function c(){var area=v('k_L')*v('k_W'),s=v('k_s')/10,ta=((v('k_a')+s)*(v('k_b')+s))/10000;if(area<=0||ta<=0)return;
+var pcs=Math.ceil(area/ta*(1+v('k_r')/100)),packs=v('k_p')>0?Math.ceil(pcs/v('k_p')):0,bags=Math.ceil(area*5/25);
+document.getElementById('k_pcs').textContent=pcs+' шт';document.getElementById('k_area').textContent=area.toFixed(2)+' м²';
+document.getElementById('k_packs').textContent=packs?packs+' уп.':'—';document.getElementById('k_glue').textContent=Math.ceil(area*5)+' кг ('+bags+' меш.)';
+document.getElementById('k_cost').textContent=Math.round(area*(1+v('k_r')/100)*v('k_c')).toLocaleString('ru-RU')+' ₽'}
+['k_L','k_W','k_a','k_b','k_r','k_s','k_p','k_c'].forEach(function(i){document.getElementById(i).addEventListener('input',c)});c()})();
+all();
+</script>
 </body>
 </html>
